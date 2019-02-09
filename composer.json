@@ -9,5 +9,7 @@
             "email": "david.ginanni@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^7.5"
+    }
 }
