@@ -1,0 +1,13 @@
+{
+    "name": "ggggino/warehouse-path",
+    "description": "Find the shortest path to retrieve all the objects in the own location",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Ginanni",
+            "email": "david.ginanni@gmail.com"
+        }
+    ],
+    "require": {}
+}
