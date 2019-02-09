@@ -9,6 +9,14 @@
             "email": "david.ginanni@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "GGGGino\\WarehousePath\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
     "require": {
         "phpunit/phpunit": "^7.5"
     }
