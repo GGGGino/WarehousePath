@@ -233,4 +233,12 @@ abstract class Place
         $this->walkingCameFrom = $walkingCameFrom;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getOriginalWeight()
+    {
+        return $this->originalWeight;
+    }
 }

@@ -39,23 +39,35 @@ class WarehouseTree
             /** @var Place $current */
             $current = array_shift($frontier);
 
-            if( $current->isVisited() )
-                continue;
-
-            $current->setVisited(true);
-
-            $walkableNeighbors = $current->getWalkableNeighbors();
+            /*$walkableNeighbors = $current->getWalkableNeighbors();
 
             if( count($walkableNeighbors) == 0 )
-                continue;
+                continue;*/
 
             /** @var Place $vicino */
-            foreach ($current->getWalkableNeighbors() as $vicino ) {
+            foreach ($current->getNeighbors() as $vicino ) {
+                if( !$vicino )
+                    continue;
+
+                $tempCost = $current->getCurrentWeight() + $vicino->getOriginalWeight();
+
+                if( $vicino->isVisited() && $tempCost < $vicino->getCurrentWeight() ) {
+                    echo "Ripasso: " . $current->getName() . "->" . $vicino->getName() . " new: " . $tempCost . " old: " . $vicino->getCurrentWeight() . "\n\r";
+                    $vicino->setCurrentWeight($tempCost);
+                    $vicino->setWalkingCameFrom($current);
+                    array_push($frontier, $vicino);
+                }
+
+                if( $vicino->isVisited() )
+                    continue;
+
+                $vicino->setVisited(true);
 
                 $vicino->increaseCurrentWeight($current->getCurrentWeight());
                 $vicino->setWalkingCameFrom($current);
 
                 echo $current->getName() . "->" . $vicino->getName() . ": " . $vicino->getCurrentWeight() . "\n\r";
+
                 /*if( $vicino === $endPlace ){
                     die('win: ' . $vicino->getName() . " with " . $vicino->getCurrentWeight());
                 }*/
