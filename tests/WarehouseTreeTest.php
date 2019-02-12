@@ -2,6 +2,7 @@
 
 use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
+use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Entity\Wall;
 use GGGGino\WarehousePath\WarehouseTree;
 use PHPUnit\Framework\TestCase;
@@ -72,8 +73,13 @@ final class WarehouseTreeTest extends TestCase
 
     public function testPath(): void
     {
-        $this->wt->getPath($this->wt->getPlaces()[0], $this->wt->getPlaces()[4]);
-        $this->assertInstanceOf(WarehouseTree::class, $this->wt);
+        /** @var Place $start */
+        $start = $this->wt->getPlaces()[0];
+        /** @var Place $end */
+        $end = $this->wt->getPlaces()[4];
+
+        $this->wt->getPath($start, $end);
+        $this->assertEquals(7, $end->getCurrentWeight());
 
         foreach($this->wt->getPlaces() as $place) {
             echo "\n\r" . $place->getName() . ": " . $place->getCurrentWeight();
