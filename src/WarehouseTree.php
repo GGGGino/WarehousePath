@@ -25,6 +25,10 @@ class WarehouseTree
     }
 
     /**
+     * Main algorithm to find the shortest path.
+     *
+     * @todo: nel futuro quando ci sarà un magazzino grande, spezzare il magazzino prendendo solo il quadrato contenente i vari punti
+     *
      * @param Place $startPlace
      * @param Place $endPlace
      */
@@ -33,16 +37,9 @@ class WarehouseTree
         $frontier = array();
         array_push($frontier, $startPlace);
 
-        echo "\n\r";
-
         while (!empty($frontier)) {
             /** @var Place $current */
             $current = array_shift($frontier);
-
-            /*$walkableNeighbors = $current->getWalkableNeighbors();
-
-            if( count($walkableNeighbors) == 0 )
-                continue;*/
 
             /** @var Place $vicino */
             foreach ($current->getNeighbors() as $vicino ) {
@@ -52,7 +49,7 @@ class WarehouseTree
                 $tempCost = $current->getCurrentWeight() + $vicino->getOriginalWeight();
 
                 if( $vicino->isVisited() && $tempCost < $vicino->getCurrentWeight() ) {
-                    echo "Ripasso: " . $current->getName() . "->" . $vicino->getName() . " new: " . $tempCost . " old: " . $vicino->getCurrentWeight() . "\n\r";
+                    //echo "Ripasso: " . $current->getName() . "->" . $vicino->getName() . " new: " . $tempCost . " old: " . $vicino->getCurrentWeight() . "\n\r";
                     $vicino->setCurrentWeight($tempCost);
                     $vicino->setWalkingCameFrom($current);
                     array_push($frontier, $vicino);
@@ -66,11 +63,7 @@ class WarehouseTree
                 $vicino->increaseCurrentWeight($current->getCurrentWeight());
                 $vicino->setWalkingCameFrom($current);
 
-                echo $current->getName() . "->" . $vicino->getName() . ": " . $vicino->getCurrentWeight() . "\n\r";
-
-                /*if( $vicino === $endPlace ){
-                    die('win: ' . $vicino->getName() . " with " . $vicino->getCurrentWeight());
-                }*/
+                //echo $current->getName() . "->" . $vicino->getName() . ": " . $vicino->getCurrentWeight() . "\n\r";
 
                 array_push($frontier, $vicino);
             }

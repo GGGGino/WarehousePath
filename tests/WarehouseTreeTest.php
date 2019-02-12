@@ -80,9 +80,21 @@ final class WarehouseTreeTest extends TestCase
 
         $this->wt->getPath($start, $end);
         $this->assertEquals(7, $end->getCurrentWeight());
+    }
 
-        foreach($this->wt->getPlaces() as $place) {
-            echo "\n\r" . $place->getName() . ": " . $place->getCurrentWeight();
+    public function testPath2(): void
+    {
+        /** @var Place $start */
+        $start = $this->wt->getPlaces()[0];
+        /** @var Place $end */
+        $end = $this->wt->getPlaces()[6];
+
+        $this->wt->getPath($start, $end);
+        $this->assertEquals(9, $end->getCurrentWeight());
+
+        while( $end ) {
+            //echo "\n\r" . $end->getName();
+            $end = $end->getWalkingCameFrom();
         }
     }
 }
