@@ -4,8 +4,10 @@ namespace GGGGino\WarehousePath\Entity;
 
 class Location extends Place
 {
-    public function __construct()
+    public function __construct($name = "")
     {
-        $this->weight = 1;
+        $this->originalWeight = 1;
+
+        parent::__construct($name);
     }
 }

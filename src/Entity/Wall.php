@@ -4,8 +4,10 @@ namespace GGGGino\WarehousePath\Entity;
 
 class Wall extends Place
 {
-    public function __construct()
+    public function __construct($name = "")
     {
-        $this->weight = 1000;
+        $this->originalWeight = 1000;
+
+        parent::__construct($name);
     }
 }

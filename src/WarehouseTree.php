@@ -30,21 +30,40 @@ class WarehouseTree
      */
     public function getPath(Place $startPlace, Place $endPlace)
     {
-        $startPlace->setVisited(true);
-        $current = &$startPlace;
-        $weight = 0;
+        $frontier = array();
+        array_push($frontier, $startPlace);
 
-        while(true) {
+        echo "\n\r";
+
+        while (!empty($frontier)) {
+            /** @var Place $current */
+            $current = array_shift($frontier);
+
+            if( $current->isVisited() )
+                continue;
+
+            $current->setVisited(true);
+
+            $walkableNeighbors = $current->getWalkableNeighbors();
+
+            if( count($walkableNeighbors) == 0 )
+                continue;
+
             /** @var Place $vicino */
-            foreach ($current->getNeighbors() as $vicino ) {
-                if( $vicino->isVisited() )
-                    continue;
+            foreach ($current->getWalkableNeighbors() as $vicino ) {
 
-                if( $vicino === $endPlace )
-                    die('win');
+                $vicino->increaseCurrentWeight($current->getCurrentWeight());
+                $vicino->setWalkingCameFrom($current);
 
-                $current = &$vicino;
+                echo $current->getName() . "->" . $vicino->getName() . ": " . $vicino->getCurrentWeight() . "\n\r";
+                /*if( $vicino === $endPlace ){
+                    die('win: ' . $vicino->getName() . " with " . $vicino->getCurrentWeight());
+                }*/
+
+                array_push($frontier, $vicino);
             }
+
+            $current->setVisited(true);
         }
     }
 }

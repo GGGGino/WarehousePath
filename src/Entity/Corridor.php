@@ -4,8 +4,10 @@ namespace GGGGino\WarehousePath\Entity;
 
 class Corridor extends Place implements WalkableInterface
 {
-    public function __construct()
+    public function __construct($name = "")
     {
-        $this->weight = 2;
+        $this->originalWeight = 2;
+
+        parent::__construct($name);
     }
 }

@@ -5,6 +5,11 @@ namespace GGGGino\WarehousePath\Entity;
 abstract class Place
 {
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var Place
      */
     protected $leftRef = null;
@@ -25,6 +30,11 @@ abstract class Place
     protected $bottomRef = null;
 
     /**
+     * @var Place
+     */
+    protected $walkingCameFrom = null;
+
+    /**
      * @var bool
      */
     protected $visited = false;
@@ -32,13 +42,28 @@ abstract class Place
     /**
      * @var int
      */
-    protected $weight = 0;
+    protected $currentWeight = 0;
+
+    /**
+     * @var int
+     */
+    protected $originalWeight = 0;
+
+    /**
+     * Place constructor.
+     * @param string $name
+     */
+    public function __construct($name = "")
+    {
+        $this->name = $name;
+        $this->currentWeight = $this->originalWeight;
+    }
 
     /**
      * @param Place $leftRef
      * @return Place
      */
-    public function setLeftRef(Place $leftRef): Place
+    public function setLeftRef(Place &$leftRef): Place
     {
         if( $this->leftRef )
             return $this;
@@ -53,7 +78,7 @@ abstract class Place
      * @param Place $rightRef
      * @return Place
      */
-    public function setRightRef(Place $rightRef): Place
+    public function setRightRef(Place &$rightRef): Place
     {
         if( $this->rightRef )
             return $this;
@@ -68,7 +93,7 @@ abstract class Place
      * @param Place $topRef
      * @return Place
      */
-    public function setTopRef(Place $topRef): Place
+    public function setTopRef(Place &$topRef): Place
     {
         if( $this->topRef )
             return $this;
@@ -83,13 +108,49 @@ abstract class Place
      * @param Place $bottomRef
      * @return Place
      */
-    public function setBottomRef(Place $bottomRef): Place
+    public function setBottomRef(Place &$bottomRef): Place
     {
         if( $this->bottomRef )
             return $this;
 
         $this->bottomRef = $bottomRef;
         $bottomRef->setTopRef($this);
+        return $this;
+    }
+
+    /**
+     * When walk the tree, when it arrives in this node, increase the value
+     *
+     * @param int $i
+     */
+    public function increaseCurrentWeight(int $i)
+    {
+        $this->currentWeight += $i;
+    }
+
+    /**
+     * Set the currentWeight at the originalWeight
+     */
+    public function resetCurrentWeight()
+    {
+        $this->currentWeight = $this->originalWeight;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrentWeight()
+    {
+        return $this->currentWeight;
+    }
+
+    /**
+     * @param int $currentWeight
+     * @return Place
+     */
+    public function setCurrentWeight($currentWeight)
+    {
+        $this->currentWeight = $currentWeight;
         return $this;
     }
 
@@ -104,6 +165,19 @@ abstract class Place
             $this->bottomRef,
             $this->leftRef
         ];
+    }
+
+    /**
+     * @return Place[]
+     */
+    public function getWalkableNeighbors()
+    {
+        return array_filter($this->getNeighbors(), function($place) {
+            if( !$place )
+                return false;
+
+            return !$place->isVisited();
+        });
     }
 
     /**
@@ -122,5 +196,41 @@ abstract class Place
     public function isVisited(): bool
     {
         return $this->visited;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return Place
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return Place
+     */
+    public function getWalkingCameFrom()
+    {
+        return $this->walkingCameFrom;
+    }
+
+    /**
+     * @param Place $walkingCameFrom
+     * @return Place
+     */
+    public function setWalkingCameFrom(Place &$walkingCameFrom)
+    {
+        $this->walkingCameFrom = $walkingCameFrom;
+        return $this;
     }
 }
