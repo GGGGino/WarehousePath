@@ -60,6 +60,8 @@ EOT
         /** @var Place $nodeEnd */
         $nodeEnd = $calculatedArray[20];
 
+        $wt->getPath($nodeStart, $nodeEnd);
+
         $table = new Table($output);
         $table
             ->setRows($calculatedMatrix)

@@ -63,11 +63,11 @@ class WarehouseMatrix
 
                 $placeTypeNew->setName($rKey . $cKey);
                 if( isset($matrix[$rKey - 1][$cKey]['obj']) ) {
-                    $placeTypeNew->setLeftRef($matrix[$rKey - 1][$cKey]['obj']);
+                    $placeTypeNew->setTopRef($matrix[$rKey - 1][$cKey]['obj']);
                 }
 
                 if( isset($matrix[$rKey][$cKey - 1]['obj']) ) {
-                    $placeTypeNew->setRightRef($matrix[$rKey][$cKey - 1]['obj']);
+                    $placeTypeNew->setLeftRef($matrix[$rKey][$cKey - 1]['obj']);
                 }
 
                 $this->calculatedMatrix[$rKey][$cKey] = $placeTypeNew;
