@@ -10,17 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 final class WarehouseTest extends TestCase
 {
-    private function printMatrix($array)
-    {
-        echo "\n\r";
-        foreach($array as $rKey => $row) {
-            foreach($row as $cKey => $column) {
-                echo str_pad($column->getName() . "-" . $column->getOriginalWeight(), 10) ;
-            }
-            echo "\n\r";
-        }
-    }
-
     public function testTransformToTreeConstructor(): void
     {
         $testMatrix = Warehouse::createMatrix(WarehouseMatrixTest::getMatrixSimple());
@@ -38,12 +27,5 @@ final class WarehouseTest extends TestCase
         $this->assertEquals('04', $nodeStart->getName());
         $this->assertEquals('32', $nodeEnd->getName());
         $wt->getPath($nodeStart, $nodeEnd);
-
-        $this->printMatrix($calculatedMatrix);
-        while( $nodeEnd ) {
-            echo "\n\r" . $nodeEnd->getName();
-            $nodeEnd = $nodeEnd->getWalkingCameFrom();
-        }
-        die();
     }
 }

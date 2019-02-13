@@ -59,6 +59,11 @@ abstract class Place
         $this->currentWeight = $this->originalWeight;
     }
 
+    public function __toString()
+    {
+        return $this->getName() . "-" . $this->getOriginalWeight();
+    }
+
     /**
      * @param Place $leftRef
      * @return Place

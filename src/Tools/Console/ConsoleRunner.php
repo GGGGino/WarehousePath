@@ -2,7 +2,7 @@
 
 namespace GGGGino\WarehousePath\Tools\Console;
 
-use GGGGino\WarehousePath\Tools\Console\Command\PrintMatrixCommand;
+use GGGGino\WarehousePath\Tools\Console\Command\GraphicalTestCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -36,7 +36,7 @@ class ConsoleRunner
     public static function addCommands(Application $cli)
     {
         $cli->addCommands([
-            new PrintMatrixCommand(),
+            new GraphicalTestCommand(),
         ]);
     }
 }
