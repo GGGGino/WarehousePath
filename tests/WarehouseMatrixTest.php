@@ -1,32 +1,31 @@
 <?php
 
+use GGGGino\WarehousePath\Warehouse;
 use GGGGino\WarehousePath\WarehouseMatrix;
+use GGGGino\WarehousePath\WarehouseTree;
 use PHPUnit\Framework\TestCase;
 
 final class WarehouseMatrixTest extends TestCase
 {
-    public function testWarehouseConstructor(): void
+    /**
+     * Super simple warehouse representation
+     *
+     * @return array
+     */
+    public static function getMatrixSimple()
     {
-        $test1 = WarehouseMatrix::createFromDimension(1, 5);
-
-        $this->assertInstanceOf(WarehouseMatrix::class, $test1);
-
-        $test2 = WarehouseMatrix::createFromMatrix(array('pluto'));
-
-        $this->assertInstanceOf(WarehouseMatrix::class, $test2);
+        return array(
+            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+            array(array('weight' => 2), array('weight' => 2), array('weight' =>   2), array('weight' => 2), array('weight' => 2), array('weight' => 1))
+        );
     }
 
-    public function testWarehouse(): void
+    public function testWarehouseConstructor(): void
     {
-        $testMatrix = array(
-            array(   2,   1, 100,   1,   2,   1),
-            array(   2,   1, 100,   1,   2,   1),
-            array(   2,   1, 100,   1,   2,   1),
-            array(   2,   2,   2,   2,   2,   1)
-        );
+        $testMatrix = Warehouse::createMatrix(self::getMatrixSimple());
 
-        $test2 = WarehouseMatrix::createFromMatrix($testMatrix);
-
-        $this->assertInstanceOf(WarehouseMatrix::class, $test2);
+        $this->assertInstanceOf(WarehouseMatrix::class, $testMatrix);
     }
 }
