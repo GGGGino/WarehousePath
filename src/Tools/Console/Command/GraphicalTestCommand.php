@@ -65,5 +65,9 @@ EOT
             ->setRows($calculatedMatrix)
         ;
         $table->render();
+
+        $output->writeln("Start: " . $nodeStart->getName());
+        $output->writeln("End: " . $nodeEnd->getName());
+        $output->writeln("Total path: " . $nodeEnd->getCurrentWeight());
     }
 }
