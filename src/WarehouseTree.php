@@ -34,16 +34,16 @@ class WarehouseTree
             $current = array_shift($frontier);
 
             /** @var Place $vicino */
-            foreach ($current->getWalkableNeighbors() as $vicino ) {
+            foreach ($current->getWalkableNeighbors() as $vicino) {
                 $tempCost = $current->getCurrentWeight() + $vicino->getOriginalWeight();
 
-                if( $vicino->isVisited() && $tempCost < $vicino->getCurrentWeight() ) {
+                if ($vicino->isVisited() && $tempCost < $vicino->getCurrentWeight()) {
                     $vicino->setCurrentWeight($tempCost);
                     $vicino->setWalkingCameFrom($current);
                     array_push($frontier, $vicino);
                 }
 
-                if( $vicino->isVisited() )
+                if ($vicino->isVisited())
                     continue;
 
                 $vicino->setVisited(true);
