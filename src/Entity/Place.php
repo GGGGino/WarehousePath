@@ -241,4 +241,15 @@ abstract class Place
     {
         return $this->originalWeight;
     }
+
+    /**
+     * @return Place
+     */
+    public function reset()
+    {
+        $this->currentWeight = $this->originalWeight;
+        $this->walkingCameFrom = null;
+
+        return $this;
+    }
 }

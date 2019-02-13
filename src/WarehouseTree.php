@@ -17,14 +17,6 @@ class WarehouseTree
     }
 
     /**
-     * @return Place[]
-     */
-    public function getPlaces(): array
-    {
-        return $this->places;
-    }
-
-    /**
      * Main algorithm to find the shortest path.
      *
      * @todo: nel futuro quando ci sarà un magazzino grande, spezzare il magazzino prendendo solo il quadrato contenente i vari punti
@@ -70,5 +62,23 @@ class WarehouseTree
 
             $current->setVisited(true);
         }
+    }
+
+    /**
+     * @return Place[]
+     */
+    public function getPlaces(): array
+    {
+        return $this->places;
+    }
+
+    /**
+     * @param Entity\Place[] $places
+     * @return WarehouseTree
+     */
+    public function setPlaces($places)
+    {
+        $this->places = $places;
+        return $this;
     }
 }
