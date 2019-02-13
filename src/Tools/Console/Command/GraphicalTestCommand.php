@@ -23,7 +23,7 @@ class GraphicalTestCommand extends Command
      */
     public static function getMatrixSimple()
     {
-        $jsonReader = new JsonReader(getcwd() . "/resources/simpleWarehouse.json");
+        $jsonReader = new JsonReader(getcwd() . "/resources/biggerWarehouse.json");
         return $jsonReader->readAndParse()['warehouse'];
     }
 
