@@ -28,7 +28,6 @@ class WarehouseTree
     {
         $frontier = array();
         array_push($frontier, $startPlace);
-        $cicli = 0;
 
         while (!empty($frontier)) {
             /** @var Place $current */
@@ -36,7 +35,6 @@ class WarehouseTree
 
             /** @var Place $vicino */
             foreach ($current->getWalkableNeighbors() as $vicino ) {
-                $cicli++;
                 $tempCost = $current->getCurrentWeight() + $vicino->getOriginalWeight();
 
                 if( $vicino->isVisited() && $tempCost < $vicino->getCurrentWeight() ) {
@@ -58,8 +56,6 @@ class WarehouseTree
 
             $current->setVisited(true);
         }
-
-        echo "Cicli" . $cicli . "\n\r";
     }
 
     /**

@@ -4,6 +4,7 @@ namespace GGGGino\WarehousePath\Tools\Console\Command;
 
 
 use GGGGino\WarehousePath\Entity\Place;
+use GGGGino\WarehousePath\JsonReader;
 use GGGGino\WarehousePath\Warehouse;
 use GGGGino\WarehousePath\WarehouseTree;
 use Symfony\Component\Console\Command\Command;
@@ -22,12 +23,8 @@ class GraphicalTestCommand extends Command
      */
     public static function getMatrixSimple()
     {
-        return array(
-            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
-            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
-            array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
-            array(array('weight' => 2), array('weight' => 2), array('weight' =>   2), array('weight' => 2), array('weight' => 2), array('weight' => 1))
-        );
+        $jsonReader = new JsonReader(getcwd() . "/resources/simpleWarehouse.json");
+        return $jsonReader->readAndParse()['warehouse'];
     }
 
     /**
@@ -56,9 +53,9 @@ EOT
         $wt = new WarehouseTree($calculatedArray);
 
         /** @var Place $nodeStart */
-        $nodeStart = $calculatedArray[4];
+        $nodeStart = $calculatedArray[5];
         /** @var Place $nodeEnd */
-        $nodeEnd = $calculatedArray[20];
+        $nodeEnd = $calculatedArray[30];
 
         $wt->getPath($nodeStart, $nodeEnd);
 
