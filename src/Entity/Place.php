@@ -65,6 +65,13 @@ abstract class Place
     }
 
     /**
+     * Describe if the place will be walkable or not
+     *
+     * @return boolean
+     */
+    abstract public function isWalkable();
+
+    /**
      * @param Place $leftRef
      * @return Place
      */
@@ -181,7 +188,7 @@ abstract class Place
             if( !$place )
                 return false;
 
-            return !$place->isVisited();
+            return $place->isWalkable();
         });
     }
 

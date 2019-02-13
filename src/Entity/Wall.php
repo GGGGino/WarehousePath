@@ -10,4 +10,14 @@ class Wall extends Place
 
         parent::__construct($name);
     }
+
+    /**
+     * Describe if the place will be walkable or not
+     *
+     * @return boolean
+     */
+    public function isWalkable()
+    {
+        return false;
+    }
 }
