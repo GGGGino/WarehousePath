@@ -12,6 +12,20 @@ class WarehouseMatrix
     private $originalMatrix;
 
     /**
+     * The matrix with the calculatedObjects
+     *
+     * @var array
+     */
+    private $calculatedMatrix;
+
+    /**
+     * The matrix with the calculatedObjects
+     *
+     * @var array
+     */
+    private $calculatedArray;
+
+    /**
      * The weight of the matrix
      *
      * @var int
@@ -26,30 +40,41 @@ class WarehouseMatrix
     private $height;
 
     /**
-     * @param array $originalMatrix
-     * @return WarehouseMatrix
+     * @var PlacesCollector
      */
-    public static function createFromMatrix($originalMatrix)
-    {
-        $instance = new self();
-        $instance->setOriginalMatrix($originalMatrix);
-        $instance->setWidth(count($originalMatrix));
-        // @todo only temporary, calculate better this line under
-        $instance->setHeight(count($originalMatrix[0]));
+    private $placeCollector;
 
-        return $instance;
+    public function __construct(PlacesCollector $placeCollector)
+    {
+        $this->placeCollector = $placeCollector;
     }
 
-    /**
-     * @return WarehouseMatrix
-     */
-    public static function createFromDimension($width, $height)
+    public function createByMatrix($matrix)
     {
-        $instance = new self();
-        $instance->setWidth($width);
-        $instance->setHeight($height);
+        $this->calculatedMatrix = array();
+        $this->setOriginalMatrix($matrix);
+        $this->setWidth(count($matrix));
+        $this->setHeight(count($matrix[0]));
 
-        return $instance;
+        foreach($matrix as $rKey => $row) {
+            foreach($row as $cKey => $column) {
+                $placeType = $this->placeCollector->getPlaceTypeByWeight($column['weight']);
+                $placeTypeNew = clone($placeType);
+
+                $placeTypeNew->setName($rKey . $cKey);
+                if( isset($matrix[$rKey - 1][$cKey]['obj']) ) {
+                    $placeTypeNew->setLeftRef($matrix[$rKey - 1][$cKey]['obj']);
+                }
+
+                if( isset($matrix[$rKey][$cKey - 1]['obj']) ) {
+                    $placeTypeNew->setRightRef($matrix[$rKey][$cKey - 1]['obj']);
+                }
+
+                $this->calculatedMatrix[$rKey][$cKey] = $placeTypeNew;
+                $this->calculatedArray[] = $placeTypeNew;
+                $matrix[$rKey][$cKey]['obj'] = $placeTypeNew;
+            }
+        }
     }
 
     /**
@@ -80,5 +105,21 @@ class WarehouseMatrix
     {
         $this->width = $width;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCalculatedArray()
+    {
+        return $this->calculatedArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCalculatedMatrix()
+    {
+        return $this->calculatedMatrix;
     }
 }
