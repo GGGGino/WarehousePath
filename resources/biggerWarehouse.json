@@ -1,0 +1,20 @@
+{
+  "warehouse": [
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 2}, {"weight":   2}, {"weight": 2}, {"weight": 2}, {"weight": 1}, {"weight":   2}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 2}, {"weight":   2}, {"weight": 2}, {"weight": 2}, {"weight": 1}, {"weight":   2}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 2}, {"weight":   2}, {"weight": 2}, {"weight": 2}, {"weight": 1}, {"weight":   2}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}, {"weight": 2}, {"weight": 1}, {"weight": 100}, {"weight": 1}],
+    [{"weight": 2}, {"weight": 2}, {"weight":   2}, {"weight": 2}, {"weight": 2}, {"weight": 1}, {"weight":   2}, {"weight": 1}]
+  ]
+}
