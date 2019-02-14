@@ -12,7 +12,7 @@ final class WarehouseMatrixTest extends TestCase
      *
      * @return array
      */
-    public static function getMatrixSimple()
+    public static function getSampleData()
     {
         return array(
             array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
@@ -24,8 +24,8 @@ final class WarehouseMatrixTest extends TestCase
 
     public function testWarehouseConstructor(): void
     {
-        $testMatrix = Warehouse::createMatrix(self::getMatrixSimple());
+        $testMatrix = Warehouse::createFromMatrix(self::getSampleData());
 
-        $this->assertInstanceOf(WarehouseMatrix::class, $testMatrix);
+        $this->assertInstanceOf(Warehouse::class, $testMatrix);
     }
 }

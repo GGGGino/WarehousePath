@@ -12,10 +12,9 @@ final class WarehouseTest extends TestCase
 {
     public function testTransformToTreeConstructor(): void
     {
-        $testMatrix = Warehouse::createMatrix(WarehouseMatrixTest::getMatrixSimple());
+        $testMatrix = Warehouse::createFromJson(getcwd() . "/resources/simpleWarehouse.json");
 
-        $calculatedArray = $testMatrix->getCalculatedArray();
-        $calculatedMatrix = $testMatrix->getCalculatedMatrix();
+        $calculatedArray = $testMatrix->getPlaces();
 
         $wt = new WarehouseTree($calculatedArray);
 
@@ -25,7 +24,7 @@ final class WarehouseTest extends TestCase
         $nodeEnd = $calculatedArray[20];
 
         $this->assertEquals('04', $nodeStart->getName());
-        $this->assertEquals('32', $nodeEnd->getName());
+        $this->assertEquals('26', $nodeEnd->getName());
         $wt->getPath($nodeStart, $nodeEnd);
     }
 }
