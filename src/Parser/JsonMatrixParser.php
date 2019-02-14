@@ -4,7 +4,7 @@ namespace GGGGino\WarehousePath\Parser;
 
 use GGGGino\WarehousePath\PlacesCollector;
 
-class MatrixParser implements ParserInterface
+class JsonMatrixParser extends MatrixParser
 {
     /**
      * The original matrix values
@@ -50,12 +50,12 @@ class MatrixParser implements ParserInterface
                 $placeTypeNew = clone($placeType);
 
                 $placeTypeNew->setName($rKey . $cKey);
-                if( isset($matrix[$rKey - 1][$cKey]['obj']) ) {
-                    $placeTypeNew->setTopRef($matrix[$rKey - 1][$cKey]['obj']);
+                if( isset($this->originalMatrix[$rKey - 1][$cKey]['obj']) ) {
+                    $placeTypeNew->setTopRef($this->originalMatrix[$rKey - 1][$cKey]['obj']);
                 }
 
-                if( isset($matrix[$rKey][$cKey - 1]['obj']) ) {
-                    $placeTypeNew->setLeftRef($matrix[$rKey][$cKey - 1]['obj']);
+                if( isset($this->originalMatrix[$rKey][$cKey - 1]['obj']) ) {
+                    $placeTypeNew->setLeftRef($this->originalMatrix[$rKey][$cKey - 1]['obj']);
                 }
 
                 $this->calculatedMatrix[$rKey][$cKey] = $placeTypeNew;
@@ -63,15 +63,5 @@ class MatrixParser implements ParserInterface
                 $matrix[$rKey][$cKey]['obj'] = $placeTypeNew;
             }
         }
-    }
-
-    /**
-     * @param array $originalMatrix
-     * @return MatrixParser
-     */
-    public function setOriginalMatrix($originalMatrix)
-    {
-        $this->originalMatrix = $originalMatrix;
-        return $this;
     }
 }
