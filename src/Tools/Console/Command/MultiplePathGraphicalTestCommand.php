@@ -61,7 +61,11 @@ EOT
             $calculatedArray[23],
             $calculatedArray[57],
             $calculatedArray[135],
-            $calculatedArray[120]
+            $calculatedArray[120],
+            $calculatedArray[115],
+            $calculatedArray[79],
+            $calculatedArray[601],
+            $calculatedArray[650]
         );
 
         $matrix = $wt->getMultiplePath($arrayNodes);
