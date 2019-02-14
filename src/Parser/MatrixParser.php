@@ -11,26 +11,26 @@ class MatrixParser implements ParserInterface
      *
      * @var array
      */
-    private $originalMatrix;
+    protected $originalMatrix;
 
     /**
      * The original matrix values
      *
      * @var array
      */
-    private $calculatedMatrix;
+    protected $calculatedMatrix;
 
     /**
      * The array with the calculated Objects
      *
      * @var array
      */
-    private $calculatedArray;
+    protected $calculatedArray;
 
     /**
      * @var PlacesCollector
      */
-    private $placeCollector;
+    protected $placeCollector;
 
     public function __construct(array $originalMatrix, PlacesCollector $placeCollector)
     {
@@ -50,19 +50,21 @@ class MatrixParser implements ParserInterface
                 $placeTypeNew = clone($placeType);
 
                 $placeTypeNew->setName($rKey . $cKey);
-                if( isset($matrix[$rKey - 1][$cKey]['obj']) ) {
-                    $placeTypeNew->setTopRef($matrix[$rKey - 1][$cKey]['obj']);
+                if( isset($this->originalMatrix[$rKey - 1][$cKey]['obj']) ) {
+                    $placeTypeNew->setTopRef($this->originalMatrix[$rKey - 1][$cKey]['obj']);
                 }
 
-                if( isset($matrix[$rKey][$cKey - 1]['obj']) ) {
-                    $placeTypeNew->setLeftRef($matrix[$rKey][$cKey - 1]['obj']);
+                if( isset($this->originalMatrix[$rKey][$cKey - 1]['obj']) ) {
+                    $placeTypeNew->setLeftRef($this->originalMatrix[$rKey][$cKey - 1]['obj']);
                 }
 
                 $this->calculatedMatrix[$rKey][$cKey] = $placeTypeNew;
                 $this->calculatedArray[] = $placeTypeNew;
-                $matrix[$rKey][$cKey]['obj'] = $placeTypeNew;
+                $this->originalMatrix[$rKey][$cKey]['obj'] = $placeTypeNew;
             }
         }
+
+        return $this->calculatedArray;
     }
 
     /**

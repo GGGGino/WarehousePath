@@ -2,6 +2,11 @@
 
 namespace GGGGino\WarehousePath;
 
+use GGGGino\WarehousePath\Calculator\CalculatorInterface;
+use GGGGino\WarehousePath\Entity\Place;
+use GGGGino\WarehousePath\Parser\JsonMatrixParser;
+use GGGGino\WarehousePath\Parser\MatrixParser;
+
 class Warehouse
 {
     /**
@@ -9,17 +14,26 @@ class Warehouse
      */
     private $placesCollector;
 
-    public static function create($param)
+    /**
+     * @var Place[]
+     */
+    private $places = array();
+
+    /**
+     * @var CalculatorInterface
+     */
+    private $pathCalculator;
+
+    public function __construct($places)
     {
-        if( is_array($param) ) {
-            new WarehouseMatrix($param);
-        }
+        $this->places = $places;
     }
 
     /***
      * @param array $param
      * @return WarehouseMatrix
      * @throws \Exception
+     * @deprecated
      */
     public static function createMatrix($param)
     {
@@ -35,19 +49,44 @@ class Warehouse
         return $wm;
     }
 
-    /**
-     * @var Place[]
+    /***
+     * @param string $path
+     * @return Warehouse
+     * @throws \Exception
      */
-    private $places = array();
-
-    /**
-     * @var CalculatorInterface
-     */
-    private $pathCalculator;
-
-    public function __construct($places)
+    public static function createFromJson($path)
     {
-        $this->places = $places;
+        if( !$path )
+            throw new \Exception('Please select a path');
+
+        $placesCollector = new PlacesCollector();
+        $placesCollector->addBasePlaceTypes();
+
+        $wm = new JsonMatrixParser($path, $placesCollector);
+
+        $instance = new self($wm->parse());
+
+        return $instance;
+    }
+
+    /**
+     * @param $param
+     * @return Warehouse
+     * @throws \Exception
+     */
+    public static function createFromMatrix($param)
+    {
+        if( !is_array($param) )
+            throw new \Exception('Matrix should be initialized with an array');
+
+        $placesCollector = new PlacesCollector();
+        $placesCollector->addBasePlaceTypes();
+
+        $wm = new MatrixParser($param, $placesCollector);
+
+        $instance = new self($wm->parse());
+
+        return $instance;
     }
 
     /**

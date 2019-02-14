@@ -46,20 +46,20 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $testMatrix = Warehouse::createMatrix(self::getMatrixSimple());
-        $calculatedArray = $testMatrix->getCalculatedArray();
+        /** @var Warehouse $warehouse */
+        $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/biggerWarehouse.json");
+        $calculatedArray = $warehouse->getPlaces();
 
-        $wt = new WarehouseTree($calculatedArray);
-        $wt->setPathCalculator((new FastCalculator()));
+        $warehouse->setPathCalculator((new FastCalculator()));
 
         /** @var Place[] $arrayNodes */
         $arrayNodes = $this->chooseSearchablePlaces($calculatedArray);
 
-        $matrix = $wt->getMultiplePath($arrayNodes);
+        $matrix = $warehouse->getMultiplePath($arrayNodes);
 
         $this->printTable($output, $arrayNodes, $matrix);
 
-        $wt->calculate($arrayNodes, $matrix);
+        $warehouse->calculate($arrayNodes, $matrix);
     }
 
     /**

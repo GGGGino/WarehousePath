@@ -46,18 +46,14 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $testMatrix = Warehouse::createMatrix(self::getMatrixSimple());
-        $calculatedArray = $testMatrix->getCalculatedArray();
-        $calculatedMatrix = $testMatrix->getCalculatedMatrix();
-
-        $wt = new WarehouseTree($calculatedArray);
+        $warehouse = Warehouse::createFromJson(getcwd() . "/resources/biggerWarehouse.json");
 
         /** @var Place $nodeStart */
-        $nodeStart = $calculatedArray[5];
+        $nodeStart = $warehouse->getPlaces()[5];
         /** @var Place $nodeEnd */
-        $nodeEnd = $calculatedArray[30];
+        $nodeEnd = $warehouse->getPlaces()[30];
 
-        $wt->getPath($nodeStart, $nodeEnd);
+        $warehouse->getPath($nodeStart, $nodeEnd);
 
         $table = new Table($output);
         $table

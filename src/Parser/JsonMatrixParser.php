@@ -7,61 +7,35 @@ use GGGGino\WarehousePath\PlacesCollector;
 class JsonMatrixParser extends MatrixParser
 {
     /**
-     * The original matrix values
-     *
-     * @var array
+     * @var string
      */
-    private $originalMatrix;
+    private $pathFile;
 
     /**
-     * The original matrix values
-     *
      * @var array
      */
-    private $calculatedMatrix;
+    private $jsonParsed;
 
-    /**
-     * The array with the calculated Objects
-     *
-     * @var array
-     */
-    private $calculatedArray;
-
-    /**
-     * @var PlacesCollector
-     */
-    private $placeCollector;
-
-    public function __construct(array $originalMatrix, PlacesCollector $placeCollector)
+    public function __construct(string $path, PlacesCollector $placeCollector)
     {
-        $this->calculatedMatrix = array();
-        $this->originalMatrix = $originalMatrix;
-        $this->placeCollector = $placeCollector;
+        $this->pathFile = $path;
+        $this->jsonParsed = $this->readAndParse();
+
+        parent::__construct($this->jsonParsed, $placeCollector);
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function parse()
+    public function readAndParse()
     {
-        foreach($this->originalMatrix as $rKey => $row) {
-            foreach($row as $cKey => $column) {
-                $placeType = $this->placeCollector->getPlaceTypeByWeight($column['weight']);
-                $placeTypeNew = clone($placeType);
+        foreach (array('/', '/../') as $base) {
 
-                $placeTypeNew->setName($rKey . $cKey);
-                if( isset($this->originalMatrix[$rKey - 1][$cKey]['obj']) ) {
-                    $placeTypeNew->setTopRef($this->originalMatrix[$rKey - 1][$cKey]['obj']);
-                }
-
-                if( isset($this->originalMatrix[$rKey][$cKey - 1]['obj']) ) {
-                    $placeTypeNew->setLeftRef($this->originalMatrix[$rKey][$cKey - 1]['obj']);
-                }
-
-                $this->calculatedMatrix[$rKey][$cKey] = $placeTypeNew;
-                $this->calculatedArray[] = $placeTypeNew;
-                $matrix[$rKey][$cKey]['obj'] = $placeTypeNew;
-            }
         }
+
+        $string = file_get_contents($this->pathFile);
+        $fileContent = json_decode($string, true);
+
+        return $fileContent['warehouse'];
     }
 }
