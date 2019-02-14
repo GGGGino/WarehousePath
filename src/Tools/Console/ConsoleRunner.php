@@ -3,6 +3,7 @@
 namespace GGGGino\WarehousePath\Tools\Console;
 
 use GGGGino\WarehousePath\Tools\Console\Command\GraphicalTestCommand;
+use GGGGino\WarehousePath\Tools\Console\Command\MultiplePathGraphicalTestCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -37,6 +38,7 @@ class ConsoleRunner
     {
         $cli->addCommands([
             new GraphicalTestCommand(),
+            new MultiplePathGraphicalTestCommand()
         ]);
     }
 }

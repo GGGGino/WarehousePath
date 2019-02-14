@@ -261,6 +261,7 @@ abstract class Place
     {
         $this->currentWeight = $this->originalWeight;
         $this->walkingCameFrom = null;
+        $this->visited = false;
 
         return $this;
     }

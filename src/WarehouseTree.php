@@ -22,9 +22,9 @@ class WarehouseTree
      * @todo: nel futuro quando ci sarà un magazzino grande, spezzare il magazzino prendendo solo il quadrato contenente i vari punti
      *
      * @param Place $startPlace
-     * @param Place $endPlace
+     * @param Place $endPlace if not null do early exit
      */
-    public function getPath(Place $startPlace, Place $endPlace)
+    public function getPath(Place $startPlace, Place $endPlace = null)
     {
         $frontier = array();
         array_push($frontier, $startPlace);
@@ -56,6 +56,41 @@ class WarehouseTree
 
             $current->setVisited(true);
         }
+    }
+
+    /**
+     * Reset all the node to permit another calculation
+     */
+    public function reset()
+    {
+        foreach ($this->places as $place) {
+            $place->reset();
+        }
+    }
+
+    /**
+     * @param Place[] $places
+     * @return array
+     */
+    public function getMultiplePath(array $places)
+    {
+        $matrixDistances = array();
+
+        /** @var Place $place */
+        foreach ($places as $place) {
+            $this->getPath($place);
+            $tempPlaceDistance = array();
+
+            /** @var Place $place */
+            foreach ($places as $place1) {
+                $tempPlaceDistance[] = $place1->getCurrentWeight();
+            }
+
+            $matrixDistances[] = $tempPlaceDistance;
+            $this->reset();
+        }
+
+        return $matrixDistances;
     }
 
     /**
