@@ -2,6 +2,7 @@
 
 namespace GGGGino\WarehousePath;
 
+use GGGGino\WarehousePath\Calculator\CalculatorInterface;
 use GGGGino\WarehousePath\Entity\Place;
 
 class WarehouseTree
@@ -10,6 +11,11 @@ class WarehouseTree
      * @var Place[]
      */
     private $places = array();
+
+    /**
+     * @var CalculatorInterface
+     */
+    private $pathCalculator;
 
     public function __construct($places)
     {
@@ -94,6 +100,16 @@ class WarehouseTree
     }
 
     /**
+     * @param $arrayNodes
+     * @param $matrix
+     * @return Place[]
+     */
+    public function calculate($arrayNodes, $matrix)
+    {
+        return $this->pathCalculator->calculate($arrayNodes, $matrix);
+    }
+
+    /**
      * @todo: mettere il minimum found
      *
      * @return array
@@ -159,6 +175,16 @@ class WarehouseTree
     public function setPlaces($places)
     {
         $this->places = $places;
+        return $this;
+    }
+
+    /**
+     * @param CalculatorInterface $pathCalculator
+     * @return WarehouseTree
+     */
+    public function setPathCalculator($pathCalculator)
+    {
+        $this->pathCalculator = $pathCalculator;
         return $this;
     }
 }

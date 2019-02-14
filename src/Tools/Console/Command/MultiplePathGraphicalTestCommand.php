@@ -2,7 +2,7 @@
 
 namespace GGGGino\WarehousePath\Tools\Console\Command;
 
-
+use GGGGino\WarehousePath\Calculator\FastCalculator;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\JsonReader;
 use GGGGino\WarehousePath\Warehouse;
@@ -50,13 +50,45 @@ EOT
         $calculatedArray = $testMatrix->getCalculatedArray();
 
         $wt = new WarehouseTree($calculatedArray);
-
-        /** @var Place $startingPoint */
-        $startingPoint = $calculatedArray[103];
+        $wt->setPathCalculator((new FastCalculator()));
 
         /** @var Place[] $arrayNodes */
-        $arrayNodes = array(
-            $startingPoint,
+        $arrayNodes = $this->chooseSearchablePlaces($calculatedArray);
+
+        $matrix = $wt->getMultiplePath($arrayNodes);
+
+        $this->printTable($output, $arrayNodes, $matrix);
+
+        $wt->calculate($arrayNodes, $matrix);
+    }
+
+    /**
+     * Output the table for debug purpose
+     *
+     * @param OutputInterface $output
+     * @param array $arrayNodes
+     * @param array $matrix
+     */
+    private function printTable(OutputInterface $output, array $arrayNodes, array $matrix)
+    {
+        $table = new Table($output);
+        $table
+            ->setHeaders($arrayNodes)
+            ->setRows($matrix)
+        ;
+        $table->render();
+    }
+
+    /**
+     * Select the Places for find the path
+     *
+     * @param Place[] $calculatedArray
+     * @return Place[]
+     */
+    private function chooseSearchablePlaces($calculatedArray)
+    {
+        return array(
+            $calculatedArray[103],
             $calculatedArray[30],
             $calculatedArray[23],
             $calculatedArray[57],
@@ -67,16 +99,5 @@ EOT
             $calculatedArray[601],
             $calculatedArray[650]
         );
-
-        $matrix = $wt->getMultiplePath($arrayNodes);
-
-        $table = new Table($output);
-        $table
-            ->setHeaders($arrayNodes)
-            ->setRows($matrix)
-        ;
-        $table->render();
-
-        $wt->getMinimumPath($arrayNodes, $matrix);
     }
 }

@@ -22,6 +22,9 @@ class JsonReader
 
     public function readAndParse()
     {
+        foreach (array('/', '/../') as $base) {
+
+        }
         $string = file_get_contents($this->pathFile);
         $this->jsonParsed = json_decode($string, true);
 
