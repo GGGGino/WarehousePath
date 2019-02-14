@@ -54,11 +54,12 @@ EOT
 
         /** @var Place[] $arrayNodes */
         $arrayNodes = array(
-            $calculatedArray[5],
+            $calculatedArray[103],
             $calculatedArray[30],
             $calculatedArray[23],
             $calculatedArray[57],
-            $calculatedArray[10]
+            $calculatedArray[135],
+            $calculatedArray[120]
         );
 
         $matrix = $wt->getMultiplePath($arrayNodes);
