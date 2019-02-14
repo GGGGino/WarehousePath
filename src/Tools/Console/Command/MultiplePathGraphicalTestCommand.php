@@ -23,7 +23,7 @@ class MultiplePathGraphicalTestCommand extends Command
      */
     public static function getMatrixSimple()
     {
-        $jsonReader = new JsonReader(getcwd() . "/resources/biggerWarehouse.json");
+        $jsonReader = new JsonReader(getcwd() . "/../resources/biggerWarehouse.json");
         return $jsonReader->readAndParse()['warehouse'];
     }
 
@@ -48,13 +48,15 @@ EOT
     {
         $testMatrix = Warehouse::createMatrix(self::getMatrixSimple());
         $calculatedArray = $testMatrix->getCalculatedArray();
-        $calculatedMatrix = $testMatrix->getCalculatedMatrix();
 
         $wt = new WarehouseTree($calculatedArray);
 
+        /** @var Place $startingPoint */
+        $startingPoint = $calculatedArray[103];
+
         /** @var Place[] $arrayNodes */
         $arrayNodes = array(
-            $calculatedArray[103],
+            $startingPoint,
             $calculatedArray[30],
             $calculatedArray[23],
             $calculatedArray[57],
@@ -70,5 +72,7 @@ EOT
             ->setRows($matrix)
         ;
         $table->render();
+
+        $wt->getMinimumPath($arrayNodes, $matrix);
     }
 }
