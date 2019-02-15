@@ -55,10 +55,10 @@ EOT
 
         $warehouse->getPath($nodeStart, $nodeEnd);
 
+        $calculatedMatrix = $warehouse->getParser()->getCalculatedMatrix();
+
         $table = new Table($output);
-        $table
-            ->setRows($calculatedMatrix)
-        ;
+        $table->setRows($calculatedMatrix);
         $table->render();
 
         $output->writeln("Start: " . $nodeStart->getName());

@@ -6,6 +6,7 @@ use GGGGino\WarehousePath\Calculator\CalculatorInterface;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Parser\JsonMatrixParser;
 use GGGGino\WarehousePath\Parser\MatrixParser;
+use GGGGino\WarehousePath\Parser\ParserInterface;
 
 class Warehouse
 {
@@ -24,9 +25,15 @@ class Warehouse
      */
     private $pathCalculator;
 
-    public function __construct($places)
+    /**
+     * @var ParserInterface
+     */
+    private $parser;
+
+    public function __construct(PlacesCollector $placesCollector, ParserInterface $parser)
     {
-        $this->places = $places;
+        $this->placesCollector = $placesCollector;
+        $this->parser = $parser;
     }
 
     /***
@@ -64,7 +71,8 @@ class Warehouse
 
         $wm = new JsonMatrixParser($path, $placesCollector);
 
-        $instance = new self($wm->parse());
+        $instance = new self($placesCollector, $wm);
+        $instance->setPlaces($wm->parse());
 
         return $instance;
     }
@@ -84,7 +92,8 @@ class Warehouse
 
         $wm = new MatrixParser($param, $placesCollector);
 
-        $instance = new self($wm->parse());
+        $instance = new self($placesCollector, $wm);
+        $instance->setPlaces($wm->parse());
 
         return $instance;
     }
@@ -186,7 +195,7 @@ class Warehouse
 
     /**
      * @param Entity\Place[] $places
-     * @return WarehouseTree
+     * @return Warehouse
      */
     public function setPlaces($places)
     {
@@ -196,11 +205,29 @@ class Warehouse
 
     /**
      * @param CalculatorInterface $pathCalculator
-     * @return WarehouseTree
+     * @return Warehouse
      */
     public function setPathCalculator($pathCalculator)
     {
         $this->pathCalculator = $pathCalculator;
         return $this;
+    }
+
+    /**
+     * @param PlacesCollector $placesCollector
+     * @return Warehouse
+     */
+    public function setPlacesCollector($placesCollector)
+    {
+        $this->placesCollector = $placesCollector;
+        return $this;
+    }
+
+    /**
+     * @return ParserInterface
+     */
+    public function getParser(): ParserInterface
+    {
+        return $this->parser;
     }
 }

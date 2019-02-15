@@ -76,4 +76,12 @@ class MatrixParser implements ParserInterface
         $this->originalMatrix = $originalMatrix;
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getCalculatedMatrix(): array
+    {
+        return $this->calculatedMatrix;
+    }
 }
