@@ -4,15 +4,16 @@ use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Entity\Wall;
+use GGGGino\WarehousePath\Warehouse;
 use GGGGino\WarehousePath\WarehouseTree;
 use PHPUnit\Framework\TestCase;
 
 final class WarehouseTreeTest extends TestCase
 {
     /**
-     * @var WarehouseTree
+     * @var Warehouse
      */
-    protected $wt;
+    protected $warehouse;
 
     /**
      * Simple warehouse structure
@@ -60,7 +61,9 @@ final class WarehouseTreeTest extends TestCase
 
         $loc7->setBottomRef($loc8);
 
-        $this->wt = new WarehouseTree(array($loc1, $loc2, $loc3, $loc4, $loc5, $loc6, $loc7, $loc8, $corr1, $wall1, $wall2));
+        $arrayPlaces = array($loc1, $loc2, $loc3, $loc4, $loc5, $loc6, $loc7, $loc8, $corr1, $wall1, $wall2);
+
+        $this->warehouse = Warehouse::createFromTree($arrayPlaces);
     }
 
     /**
@@ -68,28 +71,28 @@ final class WarehouseTreeTest extends TestCase
      */
     public function testConstructor(): void
     {
-        $this->assertInstanceOf(WarehouseTree::class, $this->wt);
+        $this->assertInstanceOf(Warehouse::class, $this->warehouse);
     }
 
     public function testPath(): void
     {
         /** @var Place $start */
-        $start = $this->wt->getPlaces()[0];
+        $start = $this->warehouse->getPlaces()[0];
         /** @var Place $end */
-        $end = $this->wt->getPlaces()[4];
+        $end = $this->warehouse->getPlaces()[4];
 
-        $this->wt->getPath($start, $end);
+        $this->warehouse->getPath($start, $end);
         $this->assertEquals(7, $end->getCurrentWeight());
     }
 
     public function testPath2(): void
     {
         /** @var Place $start */
-        $start = $this->wt->getPlaces()[0];
+        $start = $this->warehouse->getPlaces()[0];
         /** @var Place $end */
-        $end = $this->wt->getPlaces()[6];
+        $end = $this->warehouse->getPlaces()[6];
 
-        $this->wt->getPath($start, $end);
+        $this->warehouse->getPath($start, $end);
         $this->assertEquals(9, $end->getCurrentWeight());
 
         while( $end ) {

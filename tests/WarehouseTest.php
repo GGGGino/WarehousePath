@@ -16,8 +16,6 @@ final class WarehouseTest extends TestCase
 
         $calculatedArray = $testMatrix->getPlaces();
 
-        $wt = new WarehouseTree($calculatedArray);
-
         /** @var Place $nodeStart */
         $nodeStart = $calculatedArray[4];
         /** @var Place $nodeEnd */
@@ -25,6 +23,6 @@ final class WarehouseTest extends TestCase
 
         $this->assertEquals('04', $nodeStart->getName());
         $this->assertEquals('26', $nodeEnd->getName());
-        $wt->getPath($nodeStart, $nodeEnd);
+        $testMatrix->getPath($nodeStart, $nodeEnd);
     }
 }

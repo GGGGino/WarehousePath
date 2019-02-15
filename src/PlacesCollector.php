@@ -56,9 +56,9 @@ class PlacesCollector
      */
     public function addBasePlaceTypes()
     {
-        $this->addPlaceType((new Location()));
-        $this->addPlaceType((new Corridor()));
-        $this->addPlaceType((new Wall()));
+        $this->addPlaceType(new Location());
+        $this->addPlaceType(new Corridor());
+        $this->addPlaceType(new Wall());
 
         return $this;
     }

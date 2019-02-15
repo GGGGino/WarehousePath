@@ -7,6 +7,7 @@ use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Parser\JsonMatrixParser;
 use GGGGino\WarehousePath\Parser\MatrixParser;
 use GGGGino\WarehousePath\Parser\ParserInterface;
+use GGGGino\WarehousePath\Parser\TreeParser;
 
 class Warehouse
 {
@@ -91,6 +92,27 @@ class Warehouse
         $placesCollector->addBasePlaceTypes();
 
         $wm = new MatrixParser($param, $placesCollector);
+
+        $instance = new self($placesCollector, $wm);
+        $instance->setPlaces($wm->parse());
+
+        return $instance;
+    }
+
+    /**
+     * @param $param
+     * @return Warehouse
+     * @throws \Exception
+     */
+    public static function createFromTree($param)
+    {
+        if( !is_array($param) )
+            throw new \Exception('Matrix should be initialized with an array');
+
+        $placesCollector = new PlacesCollector();
+        $placesCollector->addBasePlaceTypes();
+
+        $wm = new TreeParser($param);
 
         $instance = new self($placesCollector, $wm);
         $instance->setPlaces($wm->parse());

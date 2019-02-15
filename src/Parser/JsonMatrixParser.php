@@ -29,10 +29,6 @@ class JsonMatrixParser extends MatrixParser
      */
     public function readAndParse()
     {
-        foreach (array('/', '/../') as $base) {
-
-        }
-
         $string = file_get_contents($this->pathFile);
         $fileContent = json_decode($string, true);
 
