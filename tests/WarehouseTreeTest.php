@@ -94,10 +94,13 @@ final class WarehouseTreeTest extends TestCase
 
         $this->warehouse->getPath($start, $end);
         $this->assertEquals(9, $end->getCurrentWeight());
+    }
 
-        while( $end ) {
-            //echo "\n\r" . $end->getName();
-            $end = $end->getWalkingCameFrom();
-        }
+    public function testPrintMatrix(): void
+    {
+        /** @var Place[][] $matrix */
+        $matrix = $this->warehouse->createMatrix();
+        $this->assertEquals(3, count($matrix));
+        $this->assertEquals(4, count($matrix[0]));
     }
 }

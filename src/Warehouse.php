@@ -38,26 +38,6 @@ class Warehouse
     }
 
     /***
-     * @param array $param
-     * @return WarehouseMatrix
-     * @throws \Exception
-     * @deprecated
-     */
-    public static function createMatrix($param)
-    {
-        if( !is_array($param) )
-            throw new \Exception('Matrix should be initialized with an array');
-
-        $placesCollector = new PlacesCollector();
-        $placesCollector->addBasePlaceTypes();
-
-        $wm = new WarehouseMatrix($placesCollector);
-        $wm->createByMatrix($param);
-
-        return $wm;
-    }
-
-    /***
      * @param string $path
      * @return Warehouse
      * @throws \Exception
@@ -195,6 +175,51 @@ class Warehouse
         }
 
         return $matrixDistances;
+    }
+
+    /**
+     * @return Entity\Place[][]
+     * @throws \Exception
+     */
+    public function createMatrix()
+    {
+        /** @var Place[] $places */
+        $places = $this->getPlaces();
+
+        /** @var Place[][] $resultMatrix */
+        $resultMatrix = array();
+
+        if ( empty($places) )
+            throw new \Exception('First add the places');
+
+        /** @var Place $startingPlace */
+        $startingPlace = reset($places);
+
+        while ( $newPlace = $startingPlace->getTopRef() ) {
+            $startingPlace = $newPlace;
+        }
+
+        while ( $newPlace = $startingPlace->getLeftRef() ) {
+            $startingPlace = $newPlace;
+        }
+
+        /** @var Place $rowPlace */
+        $rowPlace = $startingPlace;
+
+        do {
+            $tempRow = array();
+
+            /** @var Place $columnPlace */
+            $columnPlace = $rowPlace;
+
+            do {
+                $tempRow[] = $columnPlace;
+            } while ($columnPlace = $columnPlace->getRightRef());
+
+            $resultMatrix[] = $tempRow;
+        } while ($rowPlace = $rowPlace->getBottomRef());
+
+        return $resultMatrix;
     }
 
     /**

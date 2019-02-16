@@ -47,7 +47,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var Warehouse $warehouse */
-        $warehouse = Warehouse::createFromJson(getcwd() . "/resources/biggerWarehouse.json");
+        $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/biggerWarehouse.json");
         $calculatedArray = $warehouse->getPlaces();
 
         $warehouse->setPathCalculator(new FastCalculator());

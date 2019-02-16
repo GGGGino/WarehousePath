@@ -15,26 +15,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WarehouseMatrixTest;
 
-class ShortestPathGraphicalTestCommand extends Command
+class PrintMatrixTestCommand extends Command
 {
-    /**
-     * Super simple warehouse representation
-     *
-     * @return array
-     */
-    public static function getMatrixSimple()
-    {
-        $jsonReader = new JsonReader(getcwd() . "/../resources/biggerWarehouse.json");
-        return $jsonReader->readAndParse()['warehouse'];
-    }
-
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName('ggggino:warehouse:spg-print-matrix')
+            ->setName('ggggino:warehouse:print-matrix')
             ->setDescription('Print a beautiful matrix with the shortest path')
             ->setHelp(<<<EOT
 Print a beautiful matrix.
@@ -48,19 +37,9 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var Warehouse $warehouse */
-        $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/biggerWarehouse.json");
-        $calculatedArray = $warehouse->getPlaces();
+        $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/simpleWarehouse.json");
 
-        $warehouse->setPathCalculator(new ShortPathCalculator());
-
-        /** @var Place[] $arrayNodes */
-        $arrayNodes = $this->chooseSearchablePlaces($calculatedArray);
-
-        $matrix = $warehouse->getMultiplePath($arrayNodes);
-
-        $this->printTable($output, $arrayNodes, $matrix);
-
-        $warehouse->calculate($arrayNodes, $matrix);
+        $this->printTable($output, array(), $warehouse->createMatrix());
     }
 
     /**
@@ -74,7 +53,6 @@ EOT
     {
         $table = new Table($output);
         $table
-            ->setHeaders($arrayNodes)
             ->setRows($matrix)
         ;
         $table->render();

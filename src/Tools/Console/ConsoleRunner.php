@@ -4,6 +4,7 @@ namespace GGGGino\WarehousePath\Tools\Console;
 
 use GGGGino\WarehousePath\Tools\Console\Command\GraphicalTestCommand;
 use GGGGino\WarehousePath\Tools\Console\Command\MultiplePathGraphicalTestCommand;
+use GGGGino\WarehousePath\Tools\Console\Command\PrintMatrixTestCommand;
 use GGGGino\WarehousePath\Tools\Console\Command\ShortestPathGraphicalTestCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -40,7 +41,8 @@ class ConsoleRunner
         $cli->addCommands([
             new GraphicalTestCommand(),
             new MultiplePathGraphicalTestCommand(),
-            new ShortestPathGraphicalTestCommand()
+            new ShortestPathGraphicalTestCommand(),
+            new PrintMatrixTestCommand()
         ]);
     }
 }

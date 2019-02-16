@@ -265,4 +265,36 @@ abstract class Place
 
         return $this;
     }
+
+    /**
+     * @return Place
+     */
+    public function getLeftRef()
+    {
+        return $this->leftRef;
+    }
+
+    /**
+     * @return Place
+     */
+    public function getRightRef()
+    {
+        return $this->rightRef;
+    }
+
+    /**
+     * @return Place
+     */
+    public function getTopRef()
+    {
+        return $this->topRef;
+    }
+
+    /**
+     * @return Place
+     */
+    public function getBottomRef()
+    {
+        return $this->bottomRef;
+    }
 }
