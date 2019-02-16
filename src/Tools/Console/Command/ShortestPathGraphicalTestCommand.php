@@ -3,6 +3,7 @@
 namespace GGGGino\WarehousePath\Tools\Console\Command;
 
 use GGGGino\WarehousePath\Calculator\FastCalculator;
+use GGGGino\WarehousePath\Calculator\ShortPathCalculator;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\JsonReader;
 use GGGGino\WarehousePath\Warehouse;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WarehouseMatrixTest;
 
-class MultiplePathGraphicalTestCommand extends Command
+class ShortestPathGraphicalTestCommand extends Command
 {
     /**
      * Super simple warehouse representation
@@ -33,8 +34,8 @@ class MultiplePathGraphicalTestCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ggggino:warehouse:mpg-print-matrix')
-            ->setDescription('Print a beautiful matrix with the lenght of every path')
+            ->setName('ggggino:warehouse:spg-print-matrix')
+            ->setDescription('Print a beautiful matrix with the shortest path')
             ->setHelp(<<<EOT
 Print a beautiful matrix.
 EOT
@@ -50,7 +51,7 @@ EOT
         $warehouse = Warehouse::createFromJson(getcwd() . "/resources/biggerWarehouse.json");
         $calculatedArray = $warehouse->getPlaces();
 
-        $warehouse->setPathCalculator(new FastCalculator());
+        $warehouse->setPathCalculator(new ShortPathCalculator());
 
         /** @var Place[] $arrayNodes */
         $arrayNodes = $this->chooseSearchablePlaces($calculatedArray);
