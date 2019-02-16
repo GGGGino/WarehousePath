@@ -19,6 +19,7 @@ class FastCalculator implements CalculatorInterface
         while (count($matrix) > 1) {
             $arrayNodeKey = null;
 
+            // Walk every item in the PlaceArray and if I find one equal I use that as strating point
             foreach ($arrayNodes as $key => $node) {
                 if ( $node === $startingPoint ) {
                     $arrayNodeKey = $key;
