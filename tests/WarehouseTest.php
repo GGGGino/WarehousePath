@@ -1,11 +1,7 @@
 <?php
 
-use GGGGino\WarehousePath\Entity\Corridor;
-use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
-use GGGGino\WarehousePath\Entity\Wall;
 use GGGGino\WarehousePath\Warehouse;
-use GGGGino\WarehousePath\WarehouseTree;
 use PHPUnit\Framework\TestCase;
 
 final class WarehouseTest extends TestCase

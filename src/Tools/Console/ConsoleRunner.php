@@ -8,7 +8,6 @@ use GGGGino\WarehousePath\Tools\Console\Command\PrintMatrixTestCommand;
 use GGGGino\WarehousePath\Tools\Console\Command\ShortestPathGraphicalTestCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\HelperSet;
 
 /**
  * Handles running the Console Tools inside Symfony Console context.

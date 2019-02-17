@@ -2,11 +2,9 @@
 
 namespace GGGGino\WarehousePath\Tools\Console\Command;
 
-
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\JsonReader;
 use GGGGino\WarehousePath\Warehouse;
-use GGGGino\WarehousePath\WarehouseTree;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;

@@ -1,8 +1,6 @@
 <?php
 
 use GGGGino\WarehousePath\Warehouse;
-use GGGGino\WarehousePath\WarehouseMatrix;
-use GGGGino\WarehousePath\WarehouseTree;
 use PHPUnit\Framework\TestCase;
 
 final class WarehouseMatrixTest extends TestCase
