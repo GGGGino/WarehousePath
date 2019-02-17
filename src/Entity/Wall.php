@@ -2,8 +2,15 @@
 
 namespace GGGGino\WarehousePath\Entity;
 
+/**
+ * Class Wall
+ * @package GGGGino\WarehousePath\Entity
+ */
 class Wall extends Place
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = "")
     {
         $this->originalWeight = 100;

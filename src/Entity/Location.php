@@ -2,8 +2,15 @@
 
 namespace GGGGino\WarehousePath\Entity;
 
+/**
+ * Class Location
+ * @package GGGGino\WarehousePath\Entity
+ */
 class Location extends Place
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = "")
     {
         $this->originalWeight = 1;

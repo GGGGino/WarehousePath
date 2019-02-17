@@ -5,46 +5,65 @@ namespace GGGGino\WarehousePath\Entity;
 abstract class Place
 {
     /**
+     * An identifier to recognize the node
+     *
      * @var string
      */
     protected $name;
 
     /**
+     * Left neighbor
+     *
      * @var Place
      */
     protected $leftRef = null;
 
     /**
+     * Right neighbor
+     *
      * @var Place
      */
     protected $rightRef = null;
 
     /**
+     * Top neighbor
+     *
      * @var Place
      */
     protected $topRef = null;
 
     /**
+     * Bottom neighbor
+     *
      * @var Place
      */
     protected $bottomRef = null;
 
     /**
+     * Poperty used when I build the matrix.
+     * It is useful because it gives me the breadcrumb of the path
+     *
      * @var Place
      */
     protected $walkingCameFrom = null;
 
     /**
+     * Show if a Place is already visited
+     *
      * @var bool
      */
     protected $visited = false;
 
     /**
+     * Ideally this property is used to calculate the distance from a given point.
+     *
      * @var int
      */
     protected $currentWeight = 0;
 
     /**
+     * Original Weight given on instantiation
+     *
      * @var int
      */
     protected $originalWeight = 0;

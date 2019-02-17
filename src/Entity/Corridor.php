@@ -2,8 +2,15 @@
 
 namespace GGGGino\WarehousePath\Entity;
 
+/**
+ * Class Corridor
+ * @package GGGGino\WarehousePath\Entity
+ */
 class Corridor extends Place
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = "")
     {
         $this->originalWeight = 2;
