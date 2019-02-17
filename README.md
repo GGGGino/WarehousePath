@@ -3,6 +3,7 @@
 > Find the shortest path to retrieve all the objects in the own location
 
 [![Build Status](https://travis-ci.com/GGGGino/WarehousePath.svg?branch=master)](https://travis-ci.com/GGGGino/WarehousePath)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GGGGino/WarehousePath/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GGGGino/WarehousePath/?branch=master)
 
 # Get started
 
