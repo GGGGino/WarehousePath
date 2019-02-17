@@ -2,6 +2,8 @@
 
 > Find the shortest path to retrieve all the objects in the own location
 
+[![Build Status](https://travis-ci.com/GGGGino/WarehousePath.svg?branch=master)](https://travis-ci.com/GGGGino/WarehousePath)
+
 # Get started
 
 ```
