@@ -16,6 +16,16 @@ composer require ggggino/warehouse-path
 ```php
 use GGGGino\WarehousePath\Warehouse;
 
+public static function getSampleData()
+{
+    return array(
+        array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+        array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+        array(array('weight' => 2), array('weight' => 1), array('weight' => 100), array('weight' => 1), array('weight' => 2), array('weight' => 1)),
+        array(array('weight' => 2), array('weight' => 2), array('weight' =>   2), array('weight' => 2), array('weight' => 2), array('weight' => 1))
+    );
+}
+
 /** @var Warehouse $warehouse */
 $warehouse = Warehouse::createFromMatrix(self::getSampleData());
 ```
@@ -24,12 +34,27 @@ $warehouse = Warehouse::createFromMatrix(self::getSampleData());
 
 ```php
 use GGGGino\WarehousePath\Warehouse;
+        
+$loc1 = new Location('L1');
+$loc2 = new Location('L2');
+$loc3 = new Location('L3');
+$corridor1 = new Location('C1');
 
+$loc1->setBottomRef($loc2);
+$loc1->setRightRef($loc3);
+
+$loc3->setBottomRef($loc3);
+
+$arrayPlaces = array($loc1, $loc2, $loc3, $corridor1);
+        
 /** @var Warehouse $warehouse */
 $warehouse = Warehouse::createFromTree($arrayPlaces);
 ```
 
 #### Initialization from a json
+
+[Look here](resources/simpleWarehouse.json) and [Here](resources/biggerWarehouse.json)
+for a correct json used to build the warehouse
 
 ```php
 use GGGGino\WarehousePath\Warehouse;
@@ -40,10 +65,10 @@ $warehouse = Warehouse::createFromJson(getcwd() . "/resources/simpleWarehouse.js
 
 # Places
 
-Places are the base main factor for calculating the best path from a Point A to B.
+Places are the main factor for calculating the best path from a Point A to B.
 
 A warehouse can be seen as a matrix of Place that every item has own weight. 
-From this the program can create the best path:
+From this, the program can create the best path:
 
 **Lx** = Location 
 
@@ -61,11 +86,11 @@ Imagine you start from the Place "L1", the best path to "L7" will be:
 
 **L1** -> **L2** -> **L3** -> **C1** -> **L6** -> **L7**
 
-So the distance adding all the weight in the path will be:
+So the distance, adding all the weight in the path, will be:
 
 1 + 1 + 1 + 2 + 1 = **6**
 
-This library starts with these three:
+This library starts with these three places:
 
 | Name          | Weight           | Walkable         |
 | ------------- |:---------------- | ----------------:|

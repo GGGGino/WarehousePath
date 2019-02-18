@@ -1,9 +1,9 @@
 # Places
 
-Places are the base main factor for calculating the best path from a Point A to B.
+Places are the main factor for calculating the best path from a Point A to B.
 
-A warehouse can be seen as a matrix of Place that every item has own weight. 
-From this the program can create the best path:
+A warehouse can be seen as a matrix of Place that every item has its own weight. 
+From this, the program can create the best path:
 
 **Lx** = Location 
 
@@ -21,11 +21,11 @@ Imagine you start from the Place "L1", the best path to "L7" will be:
 
 **L1** -> **L2** -> **L3** -> **C1** -> **L6** -> **L7**
 
-So the distance adding all the weight in the path will be:
+So the distance, adding all the weight in the path, will be:
 
 1 + 1 + 1 + 2 + 1 = **6**
 
-This library starts with these three:
+This library starts with these three places:
 
 | Name          | Weight           | Walkable         |
 | ------------- |:---------------- | ----------------:|
