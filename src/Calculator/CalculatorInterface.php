@@ -21,7 +21,7 @@ interface CalculatorInterface
      *      2 (the right number) - Weight of the Location
      *
      * @param $matrix
-     *      Matrix representtation of the combination of the distances between every Place.
+     *      Matrix representation of the combination of the distances between every Place.
      *           +-------+------+------+------+-------+-------+-------+------+-------+-------+
      *           | 114-2 | 33-1 | 25-1 | 63-1 | 150-2 | 133-1 | 127-2 | 87-2 | 667-1 | 722-2 |
      *           +-------+------+------+------+-------+-------+-------+------+-------+-------+

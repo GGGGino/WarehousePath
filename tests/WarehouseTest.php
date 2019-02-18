@@ -8,6 +8,7 @@ final class WarehouseTest extends TestCase
 {
     public function testTransformToTreeConstructor(): void
     {
+        /** @var Warehouse $testMatrix */
         $testMatrix = Warehouse::createFromJson(getcwd() . "/resources/simpleWarehouse.json");
 
         $calculatedArray = $testMatrix->getPlaces();

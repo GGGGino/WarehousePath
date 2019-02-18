@@ -125,10 +125,12 @@ class Warehouse
                     $vicino->setCurrentWeight($tempCost);
                     $vicino->setWalkingCameFrom($current);
                     array_push($frontier, $vicino);
+                    continue;
                 }
 
-                if ($vicino->isVisited())
+                if ($vicino->isVisited()) {
                     continue;
+                }
 
                 $vicino->setVisited(true);
 
@@ -153,6 +155,8 @@ class Warehouse
     }
 
     /**
+     * For every place i create the path
+     *
      * @param Place[] $places
      * @return array
      */
@@ -178,6 +182,9 @@ class Warehouse
     }
 
     /**
+     * Create the matrix for development purpose.
+     * If you want to print the whole wharehouse
+     *
      * @return Entity\Place[][]
      * @throws \Exception
      */
@@ -276,5 +283,13 @@ class Warehouse
     public function getParser(): ParserInterface
     {
         return $this->parser;
+    }
+
+    /**
+     * @return PlacesCollector
+     */
+    public function getPlacesCollector()
+    {
+        return $this->placesCollector;
     }
 }
