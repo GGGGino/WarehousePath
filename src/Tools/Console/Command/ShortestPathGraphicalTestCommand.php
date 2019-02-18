@@ -18,17 +18,6 @@ use WarehouseMatrixTest;
 class ShortestPathGraphicalTestCommand extends Command
 {
     /**
-     * Super simple warehouse representation
-     *
-     * @return array
-     */
-    public static function getMatrixSimple()
-    {
-        $jsonReader = new JsonReader(getcwd() . "/../resources/biggerWarehouse.json");
-        return $jsonReader->readAndParse()['warehouse'];
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function configure()
