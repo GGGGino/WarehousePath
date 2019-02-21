@@ -2,18 +2,13 @@
 
 namespace GGGGino\WarehousePath\Tools\Console\Command;
 
-use GGGGino\WarehousePath\Calculator\FastCalculator;
 use GGGGino\WarehousePath\Calculator\ShortPathCalculator;
 use GGGGino\WarehousePath\Entity\Place;
-use GGGGino\WarehousePath\JsonReader;
 use GGGGino\WarehousePath\Warehouse;
-use GGGGino\WarehousePath\WarehouseTree;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use WarehouseMatrixTest;
 
 class ShortestPathGraphicalTestCommand extends Command
 {
