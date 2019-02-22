@@ -63,6 +63,37 @@ use GGGGino\WarehousePath\Warehouse;
 $warehouse = Warehouse::createFromJson(getcwd() . "/resources/simpleWarehouse.json")
 ```
 
+### Get distance from a starting point to every other location
+```php
+/** @var Place $nodeStart */
+$nodeStart = $calculatedArray[4];
+$warehouse->getPath($nodeStart);
+```
+
+### Get the matrix of proximity
+
+> Call the Warehouse::getPath for every single location passed in the array
+```php
+/** @var Place[] $arrayNodes array of the places to touch */
+$arrayNodes = [...]
+
+$matrix = $warehouse->getMultiplePath($arrayNodes);
+```
+
+### Best path
+
+> Calculate the best path to touch every location from the matrix of proximity
+
+```php
+/** @var Place[] $arrayNodes array of the places to touch */
+$arrayNodes = [...]
+
+$arrayNodeSorted = $warehouse->calculate($arrayNodes, $matrix);
+```
+
+With this function you get the best path to follow to touch every location
+in the warehouse/matrix.
+
 # Places
 
 Places are the main factor for calculating the best path from a Point A to B.
@@ -70,11 +101,11 @@ Places are the main factor for calculating the best path from a Point A to B.
 A warehouse can be seen as a matrix of Place that every item has own weight. 
 From this, the program can create the best path:
 
-**Lx** = Location 
+**Lx** = Location - Weight 1
 
-**Wx** = Wall
+**Wx** = Wall - Weight 100
 
-**Cx** = Corridor
+**Cx** = Corridor - Weight 2
 
 | L1 | W1 | L8 |
 |:--:|:--:|:--:|

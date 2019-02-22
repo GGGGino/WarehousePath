@@ -5,11 +5,11 @@ Places are the main factor for calculating the best path from a Point A to B.
 A warehouse can be seen as a matrix of Place that every item has its own weight. 
 From this, the program can create the best path:
 
-**Lx** = Location 
+**Lx** = Location - Weight 1
 
-**Wx** = Wall
+**Wx** = Wall - Weight 100
 
-**Cx** = Corridor
+**Cx** = Corridor - Weight 2
 
 | L1 | W1 | L8 |
 |:--:|:--:|:--:|
