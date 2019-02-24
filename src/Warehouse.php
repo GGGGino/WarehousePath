@@ -2,6 +2,8 @@
 
 namespace GGGGino\WarehousePath;
 
+use GGGGino\WarehousePath\Breadcrumb\BreadcrumbInterface;
+use GGGGino\WarehousePath\Breadcrumb\BreadthFirstBreadcrumb;
 use GGGGino\WarehousePath\Calculator\CalculatorInterface;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Parser\JsonMatrixParser;
@@ -30,11 +32,16 @@ class Warehouse
      * @var ParserInterface
      */
     private $parser;
+    /**
+     * @var BreadcrumbInterface
+     */
+    private $breadcrumbBuilder;
 
-    public function __construct(PlacesCollector $placesCollector, ParserInterface $parser)
+    public function __construct(PlacesCollector $placesCollector, ParserInterface $parser, BreadcrumbInterface $breadcrumbBuilder)
     {
         $this->placesCollector = $placesCollector;
         $this->parser = $parser;
+        $this->breadcrumbBuilder = $breadcrumbBuilder;
     }
 
     /***
@@ -50,9 +57,11 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+
         $wm = new JsonMatrixParser($path, $placesCollector);
 
-        $instance = new self($placesCollector, $wm);
+        $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
         $instance->setPlaces($wm->parse());
 
         return $instance;
@@ -71,9 +80,11 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+
         $wm = new MatrixParser($param, $placesCollector);
 
-        $instance = new self($placesCollector, $wm);
+        $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
         $instance->setPlaces($wm->parse());
 
         return $instance;
@@ -92,9 +103,11 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+
         $wm = new TreeParser($param);
 
-        $instance = new self($placesCollector, $wm);
+        $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
         $instance->setPlaces($wm->parse());
 
         return $instance;
@@ -110,38 +123,7 @@ class Warehouse
      */
     public function getPath(Place $startPlace, Place $endPlace = null)
     {
-        $frontier = array();
-        array_push($frontier, $startPlace);
-
-        while (!empty($frontier)) {
-            /** @var Place $current */
-            $current = array_shift($frontier);
-
-            /** @var Place $vicino */
-            foreach ($current->getWalkableNeighbors() as $vicino) {
-                $tempCost = $current->getCurrentWeight() + $vicino->getOriginalWeight();
-
-                if ($vicino->isVisited() && $tempCost < $vicino->getCurrentWeight()) {
-                    $vicino->setCurrentWeight($tempCost);
-                    $vicino->setWalkingCameFrom($current);
-                    array_push($frontier, $vicino);
-                    continue;
-                }
-
-                if ($vicino->isVisited()) {
-                    continue;
-                }
-
-                $vicino->setVisited(true);
-
-                $vicino->increaseCurrentWeight($current->getCurrentWeight());
-                $vicino->setWalkingCameFrom($current);
-
-                array_push($frontier, $vicino);
-            }
-
-            $current->setVisited(true);
-        }
+        $this->breadcrumbBuilder->createBreadcrumb($startPlace, $endPlace);
     }
 
     /**

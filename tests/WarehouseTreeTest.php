@@ -1,5 +1,6 @@
 <?php
 
+use GGGGino\WarehousePath\Breadcrumb\BreadthFirstBreadcrumb;
 use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
@@ -76,7 +77,9 @@ final class WarehouseTreeTest extends TestCase
 
         $wm = new TreeParser($arrayPlaces);
 
-        $this->warehouse = new Warehouse($placesCollector, $wm);
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+
+        $this->warehouse = new Warehouse($placesCollector, $wm, $breadcrumbBuilder);
         $this->warehouse->setPlaces($wm->parse());
     }
 
