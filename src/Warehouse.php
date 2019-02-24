@@ -57,7 +57,7 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
-        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $wm = new JsonMatrixParser($path, $placesCollector);
 
@@ -80,7 +80,7 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
-        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $wm = new MatrixParser($param, $placesCollector);
 
@@ -103,7 +103,7 @@ class Warehouse
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();
 
-        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $wm = new TreeParser($param);
 

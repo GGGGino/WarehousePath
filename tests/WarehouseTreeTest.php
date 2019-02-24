@@ -77,7 +77,7 @@ final class WarehouseTreeTest extends TestCase
 
         $wm = new TreeParser($arrayPlaces);
 
-        $breadcrumbBuilder = new BreadthFirstBreadcrumb();
+        $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $this->warehouse = new Warehouse($placesCollector, $wm, $breadcrumbBuilder);
         $this->warehouse->setPlaces($wm->parse());
