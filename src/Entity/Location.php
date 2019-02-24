@@ -6,7 +6,7 @@ namespace GGGGino\WarehousePath\Entity;
  * Class Location
  * @package GGGGino\WarehousePath\Entity
  */
-class Location extends Place
+class Location extends PlaceType
 {
     /**
      * @inheritdoc

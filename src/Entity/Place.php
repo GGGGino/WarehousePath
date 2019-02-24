@@ -2,7 +2,7 @@
 
 namespace GGGGino\WarehousePath\Entity;
 
-abstract class Place
+class Place
 {
     /**
      * An identifier to recognize the node
@@ -40,7 +40,7 @@ abstract class Place
     protected $bottomRef = null;
 
     /**
-     * Poperty used when I build the matrix.
+     * Property used when I build the matrix.
      * It is useful because it gives me the breadcrumb of the path
      *
      * @var Place
@@ -62,20 +62,20 @@ abstract class Place
     protected $currentWeight = 0;
 
     /**
-     * Original Weight given on instantiation
-     *
-     * @var int
+     * @var PlaceType
      */
-    protected $originalWeight = 0;
+    protected $placeType;
 
     /**
      * Place constructor.
+     * @param $placeType
      * @param string $name
      */
-    public function __construct($name = "")
+    public function __construct($placeType, $name = "")
     {
         $this->name = $name;
-        $this->currentWeight = $this->originalWeight;
+        $this->placeType = $placeType;
+        $this->currentWeight = $this->placeType->getOriginalWeight();
     }
 
     public function __toString()
@@ -88,7 +88,10 @@ abstract class Place
      *
      * @return boolean
      */
-    abstract public function isWalkable();
+    public function isWalkable()
+    {
+        return $this->placeType->isWalkable();
+    }
 
     /**
      * @param Place $leftRef
@@ -164,7 +167,7 @@ abstract class Place
      */
     public function resetCurrentWeight()
     {
-        $this->currentWeight = $this->originalWeight;
+        $this->currentWeight = $this->getOriginalWeight();
     }
 
     /**
@@ -270,7 +273,7 @@ abstract class Place
      */
     public function getOriginalWeight()
     {
-        return $this->originalWeight;
+        return $this->placeType->getOriginalWeight();
     }
 
     /**
@@ -278,7 +281,7 @@ abstract class Place
      */
     public function reset()
     {
-        $this->currentWeight = $this->originalWeight;
+        $this->currentWeight = $this->getOriginalWeight();
         $this->walkingCameFrom = null;
         $this->visited = false;
 

@@ -67,7 +67,7 @@ class PlacesCollector
      * @param $weight
      * @return Place
      */
-    public function getPlaceTypeByWeight($weight)
+    public function &getPlaceTypeByWeight($weight)
     {
         /** @var Place $placeType */
         foreach ($this->placeTypes as $placeType) {

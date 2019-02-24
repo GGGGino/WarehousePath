@@ -6,7 +6,7 @@ namespace GGGGino\WarehousePath\Entity;
  * Class Wall
  * @package GGGGino\WarehousePath\Entity
  */
-class Wall extends Place
+class Wall extends PlaceType
 {
     /**
      * @inheritdoc

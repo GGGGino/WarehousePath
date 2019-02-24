@@ -4,6 +4,7 @@ use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Entity\Wall;
+use GGGGino\WarehousePath\PlacesCollector;
 use GGGGino\WarehousePath\Warehouse;
 use PHPUnit\Framework\TestCase;
 
@@ -26,17 +27,17 @@ final class WarehouseTreeTest extends TestCase
      */
     protected function setUp()
     {
-        $loc1 = new Location('L1');
-        $loc2 = new Location('L2');
-        $loc3 = new Location('L3');
-        $loc4 = new Location('L4');
-        $loc5 = new Location('L5');
-        $loc6 = new Location('L6');
-        $loc7 = new Location('L7');
-        $loc8 = new Location('L8');
-        $corr1 = new Corridor('C1');
-        $wall1 = new Wall('W1');
-        $wall2 = new Wall('W2');
+        $loc1 = new Place(new Location('L1'));
+        $loc2 = new Place(new Location('L2'));
+        $loc3 = new Place(new Location('L3'));
+        $loc4 = new Place(new Location('L4'));
+        $loc5 = new Place(new Location('L5'));
+        $loc6 = new Place(new Location('L6'));
+        $loc7 = new Place(new Location('L7'));
+        $loc8 = new Place(new Location('L8'));
+        $corr1 = new Place(new Corridor('C1'));
+        $wall1 = new Place(new Wall('W1'));
+        $wall2 = new Place(new Wall('W2'));
 
         $loc1->setRightRef($wall1);
         $loc1->setBottomRef($loc2);

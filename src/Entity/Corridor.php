@@ -6,7 +6,7 @@ namespace GGGGino\WarehousePath\Entity;
  * Class Corridor
  * @package GGGGino\WarehousePath\Entity
  */
-class Corridor extends Place
+class Corridor extends PlaceType
 {
     /**
      * @inheritdoc

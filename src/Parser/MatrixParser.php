@@ -2,6 +2,7 @@
 
 namespace GGGGino\WarehousePath\Parser;
 
+use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\PlacesCollector;
 
 class MatrixParser implements ParserInterface
@@ -47,7 +48,7 @@ class MatrixParser implements ParserInterface
         foreach($this->originalMatrix as $rKey => $row) {
             foreach($row as $cKey => $column) {
                 $placeType = $this->placeCollector->getPlaceTypeByWeight($column['weight']);
-                $placeTypeNew = clone($placeType);
+                $placeTypeNew = new Place($placeType);
 
                 $placeTypeNew->setName($rKey . $cKey);
                 if( isset($this->originalMatrix[$rKey - 1][$cKey]['obj']) ) {

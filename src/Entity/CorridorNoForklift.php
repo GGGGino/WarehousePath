@@ -9,7 +9,7 @@ namespace GGGGino\WarehousePath\Entity;
  * Class CorridorNoForklift
  * @package GGGGino\WarehousePath\Entity
  */
-class CorridorNoForklift extends Place
+class CorridorNoForklift extends PlaceType
 {
     /**
      * @inheritdoc
