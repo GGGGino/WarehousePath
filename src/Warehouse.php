@@ -87,7 +87,7 @@ class Warehouse
     public static function createFromTree($param)
     {
         if( !is_array($param) )
-            throw new \Exception('Matrix should be initialized with an array');
+            throw new \Exception('Should be initialized with an array');
 
         $placesCollector = new PlacesCollector();
         $placesCollector->addBasePlaceTypes();

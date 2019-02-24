@@ -4,6 +4,7 @@ use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\Entity\Wall;
+use GGGGino\WarehousePath\Parser\TreeParser;
 use GGGGino\WarehousePath\PlacesCollector;
 use GGGGino\WarehousePath\Warehouse;
 use PHPUnit\Framework\TestCase;
@@ -21,23 +22,33 @@ final class WarehouseTreeTest extends TestCase
      * Wx = Wall
      * Cx = Corridor
      *
-     *  L1|W1|L6
-     *  L2|W2|L5
+     *  L1|W1|L6|L7
+     *  L2|W2|L5|L8
      *  L3|C1|L4
      */
     protected function setUp()
     {
-        $loc1 = new Place(new Location('L1'));
-        $loc2 = new Place(new Location('L2'));
-        $loc3 = new Place(new Location('L3'));
-        $loc4 = new Place(new Location('L4'));
-        $loc5 = new Place(new Location('L5'));
-        $loc6 = new Place(new Location('L6'));
-        $loc7 = new Place(new Location('L7'));
-        $loc8 = new Place(new Location('L8'));
-        $corr1 = new Place(new Corridor('C1'));
-        $wall1 = new Place(new Wall('W1'));
-        $wall2 = new Place(new Wall('W2'));
+        $placesCollector = new PlacesCollector();
+        $placesCollector->addBasePlaceTypes();
+
+        /** @var Location $locationType */
+        $locationType = $placesCollector->getPlaceTypeByClass(Location::class);
+        /** @var Corridor $locationType */
+        $corridorType = $placesCollector->getPlaceTypeByClass(Corridor::class);
+        /** @var Wall $locationType */
+        $wallType = $placesCollector->getPlaceTypeByClass(Wall::class);
+
+        $loc1 = new Place($locationType, 'L1');
+        $loc2 = new Place($locationType, 'L2');
+        $loc3 = new Place($locationType, 'L3');
+        $loc4 = new Place($locationType, 'L4');
+        $loc5 = new Place($locationType, 'L5');
+        $loc6 = new Place($locationType, 'L6');
+        $loc7 = new Place($locationType, 'L7');
+        $loc8 = new Place($locationType, 'L8');
+        $corr1 = new Place($corridorType, 'C1');
+        $wall1 = new Place($wallType, 'W1');
+        $wall2 = new Place($wallType, 'W2');
 
         $loc1->setRightRef($wall1);
         $loc1->setBottomRef($loc2);
@@ -63,7 +74,10 @@ final class WarehouseTreeTest extends TestCase
 
         $arrayPlaces = array($loc1, $loc2, $loc3, $loc4, $loc5, $loc6, $loc7, $loc8, $corr1, $wall1, $wall2);
 
-        $this->warehouse = Warehouse::createFromTree($arrayPlaces);
+        $wm = new TreeParser($arrayPlaces);
+
+        $this->warehouse = new Warehouse($placesCollector, $wm);
+        $this->warehouse->setPlaces($wm->parse());
     }
 
     /**

@@ -5,6 +5,7 @@ namespace GGGGino\WarehousePath;
 use GGGGino\WarehousePath\Entity\Corridor;
 use GGGGino\WarehousePath\Entity\Location;
 use GGGGino\WarehousePath\Entity\Place;
+use GGGGino\WarehousePath\Entity\PlaceType;
 use GGGGino\WarehousePath\Entity\Wall;
 
 /**
@@ -14,7 +15,7 @@ use GGGGino\WarehousePath\Entity\Wall;
 class PlacesCollector
 {
     /**
-     * @var Place[]
+     * @var PlaceType[]
      */
     private $placeTypes;
 
@@ -24,7 +25,7 @@ class PlacesCollector
     }
 
     /**
-     * @return Place[]
+     * @return PlaceType[]
      */
     public function getPlacesType()
     {
@@ -32,7 +33,7 @@ class PlacesCollector
     }
 
     /**
-     * @param Place[] $placeTypes
+     * @param PlaceType[] $placeTypes
      * @return PlacesCollector
      */
     public function setPlacesType($placeTypes)
@@ -61,6 +62,24 @@ class PlacesCollector
         $this->addPlaceType(new Wall());
 
         return $this;
+    }
+
+    /**
+     * Get the placeType from a give classname
+     *
+     * @param $class
+     * @return Place
+     */
+    public function &getPlaceTypeByClass($class)
+    {
+        /** @var Place $placeType */
+        foreach ($this->placeTypes as $placeType) {
+            if ($placeType instanceof $class) {
+                return $placeType;
+            }
+        }
+
+        return null;
     }
 
     /**
