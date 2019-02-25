@@ -41,7 +41,7 @@ class FastBreadthFirstBreadcrumb implements BreadcrumbInterface
     /**
      * @var int
      */
-    private $precision = 100;
+    private $precision = 40;
 
     /**
      * BreadthFirstBreadcrumb constructor.
