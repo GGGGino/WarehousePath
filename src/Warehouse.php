@@ -152,7 +152,7 @@ class Warehouse
     public function createMatrix()
     {
         /** @var Place[] $places */
-        $places = $this->getPlaces();
+        $places = $this->getPlacesCollector()->getPlaces();
 
         /** @var Place[][] $resultMatrix */
         $resultMatrix = array();
