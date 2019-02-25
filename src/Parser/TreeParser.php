@@ -10,10 +10,15 @@ class TreeParser implements ParserInterface
      * @var array
      */
     private $places;
+    /**
+     * @var PlacesCollector
+     */
+    private $placeCollector;
 
-    public function __construct(array $places)
+    public function __construct(array $places, PlacesCollector $placeCollector)
     {
         $this->places = $places;
+        $this->placeCollector = $placeCollector;
     }
 
     /**
@@ -21,6 +26,7 @@ class TreeParser implements ParserInterface
      */
     public function parse()
     {
+        $this->placeCollector->setPlaces($this->places);
         return $this->places;
     }
 }

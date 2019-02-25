@@ -5,7 +5,14 @@ namespace GGGGino\WarehousePath\Breadcrumb;
 use GGGGino\WarehousePath\Entity\Place;
 use GGGGino\WarehousePath\PlacesCollector;
 
-class BreadthFirstBreadcrumb implements BreadcrumbInterface
+/**
+ * This method map only the nearest nodes/places for speed purpose.
+ * This is less accurate but faster
+ *
+ * Class FastBreadthFirstBreadcrumb
+ * @package GGGGino\WarehousePath\Breadcrumb
+ */
+class FastBreadthFirstBreadcrumb implements BreadcrumbInterface
 {
     /**
      * Callback useful if you want to modifiy temporarily some wharehouse configuration
@@ -29,7 +36,12 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
     /**
      * @var PlacesCollector
      */
-    protected $placeCollector;
+    private $placeCollector;
+
+    /**
+     * @var int
+     */
+    private $precision = 20;
 
     /**
      * BreadthFirstBreadcrumb constructor.
@@ -60,6 +72,9 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
         while (!empty($frontier)) {
             /** @var Place $current */
             $current = array_shift($frontier);
+
+            if( $current->getCurrentWeight() > $this->precision )
+                continue;
 
             if ( is_callable( $this->onWalk ) ) {
                 call_user_func($this->onWalk, $current);
@@ -104,13 +119,14 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
             $this->createBreadcrumb($place);
             $tempPlaceDistance = array();
 
-            /** @var Place $place1 */
+            /** @var Place $place */
             foreach ($places as $place1) {
-                $tempPlaceDistance[] = $place1->getCurrentWeight();
+                $tempWeight = $place1->getCurrentWeight() ?: 100;
+                $tempPlaceDistance[] = $tempWeight;
             }
 
             $matrixDistances[] = $tempPlaceDistance;
-            $this->reset();
+            $this->reset($places);
         }
 
         return $matrixDistances;
@@ -118,17 +134,18 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
 
     /**
      * Reset all the node to permit another calculation
+     * @param Place[] $places
      */
-    public function reset()
+    public function reset($places)
     {
-        foreach ($this->placeCollector->getPlaces() as $place) {
+        foreach ($places as $place) {
             $place->reset();
         }
     }
 
     /**
      * @param callable|null $onPreCreateBreadcumb
-     * @return BreadthFirstBreadcrumb
+     * @return FastBreadthFirstBreadcrumb
      */
     public function setOnPreCreateBreadcumb($onPreCreateBreadcumb)
     {
@@ -138,7 +155,7 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
 
     /**
      * @param callable|null $onWalk
-     * @return BreadthFirstBreadcrumb
+     * @return FastBreadthFirstBreadcrumb
      */
     public function setOnWalk($onWalk)
     {

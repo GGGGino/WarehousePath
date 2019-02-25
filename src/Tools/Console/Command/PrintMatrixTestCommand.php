@@ -31,7 +31,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var Warehouse $warehouse */
-        $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/simpleWarehouse.json");
+        $warehouse = Warehouse::createFromJson(getcwd() . "/./resources/simpleWarehouse.json");
 
         $this->printTable($output, array(), $warehouse->createMatrix());
     }

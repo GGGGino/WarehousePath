@@ -65,6 +65,8 @@ class MatrixParser implements ParserInterface
             }
         }
 
+        $this->placeCollector->setPlaces($this->calculatedArray);
+
         return $this->calculatedArray;
     }
 

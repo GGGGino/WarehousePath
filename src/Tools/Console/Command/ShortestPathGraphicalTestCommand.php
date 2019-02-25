@@ -33,7 +33,7 @@ EOT
     {
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::createFromJson(getcwd() . "/../resources/biggerWarehouse.json");
-        $calculatedArray = $warehouse->getPlaces();
+        $calculatedArray = $warehouse->getPlacesCollector()->getPlaces();
 
         $warehouse->setPathCalculator(new ShortPathCalculator());
 

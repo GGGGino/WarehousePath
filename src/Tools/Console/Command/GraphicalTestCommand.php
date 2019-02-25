@@ -33,9 +33,9 @@ EOT
         $warehouse = Warehouse::createFromJson(getcwd() . "/resources/biggerWarehouse.json");
 
         /** @var Place $nodeStart */
-        $nodeStart = $warehouse->getPlaces()[5];
+        $nodeStart = $warehouse->getPlacesCollector()->getPlaces()[5];
         /** @var Place $nodeEnd */
-        $nodeEnd = $warehouse->getPlaces()[30];
+        $nodeEnd = $warehouse->getPlacesCollector()->getPlaces()[30];
 
         $warehouse->getPath($nodeStart, $nodeEnd);
 

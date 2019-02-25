@@ -19,11 +19,6 @@ class Warehouse
     private $placesCollector;
 
     /**
-     * @var Place[]
-     */
-    private $places = array();
-
-    /**
      * @var CalculatorInterface
      */
     private $pathCalculator;
@@ -60,9 +55,9 @@ class Warehouse
         $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $wm = new JsonMatrixParser($path, $placesCollector);
+        $placesCollector->setPlaces($wm->parse());
 
         $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
-        $instance->setPlaces($wm->parse());
 
         return $instance;
     }
@@ -83,9 +78,9 @@ class Warehouse
         $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $wm = new MatrixParser($param, $placesCollector);
+        $placesCollector->setPlaces($wm->parse());
 
         $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
-        $instance->setPlaces($wm->parse());
 
         return $instance;
     }
@@ -105,10 +100,10 @@ class Warehouse
 
         $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
-        $wm = new TreeParser($param);
+        $wm = new TreeParser($param, $placesCollector);
+        $placesCollector->setPlaces($wm->parse());
 
         $instance = new self($placesCollector, $wm, $breadcrumbBuilder);
-        $instance->setPlaces($wm->parse());
 
         return $instance;
     }
@@ -144,23 +139,7 @@ class Warehouse
      */
     public function getMultiplePath(array $places)
     {
-        $matrixDistances = array();
-
-        /** @var Place $place */
-        foreach ($places as $place) {
-            $this->getPath($place);
-            $tempPlaceDistance = array();
-
-            /** @var Place $place */
-            foreach ($places as $place1) {
-                $tempPlaceDistance[] = $place1->getCurrentWeight();
-            }
-
-            $matrixDistances[] = $tempPlaceDistance;
-            $this->reset();
-        }
-
-        return $matrixDistances;
+        return $this->breadcrumbBuilder->createMultipleBreadcrumb($places);
     }
 
     /**
@@ -219,24 +198,6 @@ class Warehouse
     public function calculate($arrayNodes, $matrix)
     {
         return $this->pathCalculator->calculate($arrayNodes, $matrix);
-    }
-
-    /**
-     * @return Place[]
-     */
-    public function getPlaces(): array
-    {
-        return $this->places;
-    }
-
-    /**
-     * @param Entity\Place[] $places
-     * @return Warehouse
-     */
-    public function setPlaces($places)
-    {
-        $this->places = $places;
-        return $this;
     }
 
     /**

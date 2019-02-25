@@ -75,12 +75,12 @@ final class WarehouseTreeTest extends TestCase
 
         $arrayPlaces = array($loc1, $loc2, $loc3, $loc4, $loc5, $loc6, $loc7, $loc8, $corr1, $wall1, $wall2);
 
-        $wm = new TreeParser($arrayPlaces);
+        $wm = new TreeParser($arrayPlaces, $placesCollector);
+        $placesCollector->setPlaces($wm->parse());
 
         $breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
 
         $this->warehouse = new Warehouse($placesCollector, $wm, $breadcrumbBuilder);
-        $this->warehouse->setPlaces($wm->parse());
     }
 
     /**
@@ -94,9 +94,9 @@ final class WarehouseTreeTest extends TestCase
     public function testPath(): void
     {
         /** @var Place $start */
-        $start = $this->warehouse->getPlaces()[0];
+        $start = $this->warehouse->getPlacesCollector()->getPlaces()[0];
         /** @var Place $end */
-        $end = $this->warehouse->getPlaces()[4];
+        $end = $this->warehouse->getPlacesCollector()->getPlaces()[4];
 
         $this->warehouse->getPath($start, $end);
         $this->assertEquals(7, $end->getCurrentWeight());
@@ -105,9 +105,9 @@ final class WarehouseTreeTest extends TestCase
     public function testPath2(): void
     {
         /** @var Place $start */
-        $start = $this->warehouse->getPlaces()[0];
+        $start = $this->warehouse->getPlacesCollector()->getPlaces()[0];
         /** @var Place $end */
-        $end = $this->warehouse->getPlaces()[6];
+        $end = $this->warehouse->getPlacesCollector()->getPlaces()[6];
 
         $this->warehouse->getPath($start, $end);
         $this->assertEquals(9, $end->getCurrentWeight());

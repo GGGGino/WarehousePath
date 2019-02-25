@@ -19,9 +19,15 @@ class PlacesCollector
      */
     private $placeTypes;
 
+    /**
+     * @var Place[]
+     */
+    private $places = array();
+
     public function __construct()
     {
         $this->placeTypes = array();
+        $this->places = array();
     }
 
     /**
@@ -96,5 +102,23 @@ class PlacesCollector
         }
 
         return null;
+    }
+
+    /**
+     * @return Place[]
+     */
+    public function getPlaces(): array
+    {
+        return $this->places;
+    }
+
+    /**
+     * @param Place[] $places
+     * @return PlacesCollector
+     */
+    public function setPlaces($places)
+    {
+        $this->places = $places;
+        return $this;
     }
 }
