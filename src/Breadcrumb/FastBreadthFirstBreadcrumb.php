@@ -41,7 +41,7 @@ class FastBreadthFirstBreadcrumb implements BreadcrumbInterface
     /**
      * @var int
      */
-    private $precision = 20;
+    private $precision = 100;
 
     /**
      * BreadthFirstBreadcrumb constructor.
@@ -126,21 +126,10 @@ class FastBreadthFirstBreadcrumb implements BreadcrumbInterface
             }
 
             $matrixDistances[] = $tempPlaceDistance;
-            $this->reset($places);
+            $this->placeCollector->reset();
         }
 
         return $matrixDistances;
-    }
-
-    /**
-     * Reset all the node to permit another calculation
-     * @param Place[] $places
-     */
-    public function reset($places)
-    {
-        foreach ($places as $place) {
-            $place->reset();
-        }
     }
 
     /**

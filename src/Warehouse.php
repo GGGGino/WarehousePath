@@ -122,16 +122,6 @@ class Warehouse
     }
 
     /**
-     * Reset all the node to permit another calculation
-     */
-    public function reset()
-    {
-        foreach ($this->places as $place) {
-            $place->reset();
-        }
-    }
-
-    /**
      * For every place i create the path
      *
      * @param Place[] $places

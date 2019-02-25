@@ -83,6 +83,10 @@ final class WarehouseTest extends TestCase
 
         $arrayOrdered = $testMatrix->calculate($nodes, $matrix);
         $this->assertEquals(12, count($arrayOrdered));
+
+        $resultExpectedJoined = "04-2, 15-1, 54-2, 53-1, 11-1, 111-1, 133-1, 135-1, 68-2, 22-100, 66-100, 16-100";
+        $resultActualJoined = join(", ", $arrayOrdered);
+        $this->assertEquals($resultExpectedJoined, $resultActualJoined);
     }
 
     /**
@@ -126,5 +130,9 @@ final class WarehouseTest extends TestCase
 
         $arrayOrdered = $wh->calculate($nodes, $matrix);
         $this->assertEquals(12, count($arrayOrdered));
+
+        $resultExpectedJoined = "04-2, 15-1, 54-2, 53-1, 11-1, 111-1, 133-1, 135-1, 68-2, 22-100, 66-100, 16-100";
+        $resultActualJoined = join(", ", $arrayOrdered);
+        $this->assertEquals($resultExpectedJoined, $resultActualJoined);
     }
 }

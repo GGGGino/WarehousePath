@@ -110,20 +110,10 @@ class BreadthFirstBreadcrumb implements BreadcrumbInterface
             }
 
             $matrixDistances[] = $tempPlaceDistance;
-            $this->reset();
+            $this->placeCollector->reset();
         }
 
         return $matrixDistances;
-    }
-
-    /**
-     * Reset all the node to permit another calculation
-     */
-    public function reset()
-    {
-        foreach ($this->placeCollector->getPlaces() as $place) {
-            $place->reset();
-        }
     }
 
     /**

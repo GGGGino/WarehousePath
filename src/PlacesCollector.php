@@ -105,6 +105,16 @@ class PlacesCollector
     }
 
     /**
+     * Reset all the node to permit another calculation
+     */
+    public function reset()
+    {
+        foreach ($this->places as $place) {
+            $place->reset();
+        }
+    }
+
+    /**
      * @return Place[]
      */
     public function getPlaces(): array
