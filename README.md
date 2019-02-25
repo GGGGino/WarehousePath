@@ -63,6 +63,25 @@ use GGGGino\WarehousePath\Warehouse;
 $warehouse = Warehouse::createFromJson(getcwd() . "/resources/simpleWarehouse.json")
 ```
 
+#### Initialization in detail
+
+```php
+// Instantiate a place collector that contain the type of available places
+$placesCollector = new PlacesCollector();
+
+// optionally add the baseplace types (Location, Corridor, Wall)
+$placesCollector->addBasePlaceTypes();
+
+// Istantiate the Parser to prepare the places in an array
+$wm = new MatrixParser($param, $placesCollector);
+
+// Istantiate a customizable Breadcrumb buider 
+$breadcrumbBuilder = new BreadthFirstBreadcrumb($placesCollector);
+
+$instance = new Warehouse($placesCollector, $wm, $breadcrumbBuilder);
+$instance->setPlaces($wm->parse());
+```
+
 ### Get distance from a starting point to every other location
 ```php
 /** @var Place $nodeStart */
@@ -132,3 +151,29 @@ This library starts with these three places:
 You can add as many type of Place as you want.
 
 [Read the complete doc about Places](docs/places.md)
+
+# Breadcrumb builder
+
+The breadcrumb builder aim to create a matrix from the array of all places.
+This matrix will be passed to the calculator that calculate the correct order
+which is the correct path to touch all the places with the less cost possible.
+
+### Breadth First
+
+With this method I map the wharehouse expanding the area and keep in mind the previous 
+state on every step. In this way I can realize a wharehouse that every place knows the shortest
+path to specific point
+
+[Read the complete doc about Breadcrumb](docs/breadcrumb_builder.md)
+
+# Calculators
+
+The calculator is the method that choose the best order to touch every location listed.
+At the moment only one type of calculation is available.
+
+### Fast calculator
+
+In the matrix builded from the distance between every location,
+I chose for every location the closer location.
+
+[Read the complete doc about Calculators](docs/calculators.md)
